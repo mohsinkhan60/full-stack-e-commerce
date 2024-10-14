@@ -1,3 +1,4 @@
+import FlashSales from "../Components/Home/FlashSales"
 import FreshProducts from "../Components/Home/FreshProducts"
 import Header from "../Components/Home/Header"
 
@@ -7,6 +8,7 @@ export const Home = () => {
     <div>
       <Header />
       <FreshProducts />
+      <FlashSales />
     </div>
   )
 }

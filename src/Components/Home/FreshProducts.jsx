@@ -46,7 +46,7 @@ const Card = ({ title, image }) => {
     <div className="relative">
       <img src={image} alt={title} className={`w-full h-full mx-2 object-cover rounded`} />
       <p className="absolute top-10 left-10 font-bold text-2xl w-40">{title}</p>
-      <button className="absolute flex items-center gap-2 bottom-10 left-10 bg-green-600 hover:bg-green-500  px-4 py-2 rounded-full">
+      <button className="absolute flex items-center gap-2 bottom-10 left-10 bg-green-400 hover:bg-green-500 hover:text-white  px-4 py-2 rounded-full">
         Shop Now
         <IoIosArrowRoundForward className="text-2xl font-bold" />
       </button>

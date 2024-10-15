@@ -295,3 +295,33 @@ export const flashSales = [
     total: 35,
   },
 ];
+
+export const productItems = [
+  {
+    name: "Taylor Farms Broccoli...",
+    price: 1500.0,
+    image: "/Home/short-product-img5.png",
+  },
+  {
+    name: "Taylor Farms Broccoli...",
+    price: 1500.0,
+    image: "/Home/short-product-img6.png",
+  },
+  {
+    name: "Taylor Farms Broccoli...",
+    price: 1500.0,
+    image: "/Home/short-product-img7.png",
+  },
+  {
+    name: "Taylor Farms Broccoli...",
+    price: 1500.0,
+    image: "/Home/short-product-img8.png",
+  },
+];
+
+export const productSections = [
+  { title: "Featured Products" },
+  { title: "Top Selling Products" },
+  { title: "On-sale Products" },
+  { title: "Top Rated Products" },
+];

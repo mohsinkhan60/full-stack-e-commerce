@@ -4,6 +4,7 @@ import FreshProducts from "../Components/Home/FreshProducts"
 import Header from "../Components/Home/Header"
 import HotDeals from "../Components/Home/HotDeals"
 import Recommended from "../Components/Home/Recommended"
+import WeeklyTop from "../Components/Home/WeeklyTop"
 
 
 export const Home = () => {
@@ -15,6 +16,7 @@ export const Home = () => {
       <FlashSalesBottom />
       <Recommended />
       <HotDeals />
+      <WeeklyTop />
     </div>
   )
 }

@@ -95,8 +95,8 @@ const ProductCard = ({ title, imageSrc, bgColor }) => {
 const Product = ({ product }) => (
   <div className="bg-transparent p-4 rounded-lg border hover:border-green-500 my-10">
     <div className="relative">
-      <img src={product.image} alt={product.name} className="w-full mt-5 h-full object-cover rounded-md" />
-      <button className="absolute -top-4 -right-2 bg-transparent border hover:bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-semibold flex items-center">
+      <img src={product.image} alt={product.name} className="w-full h-48 object-contain mb-4" />
+      <button className="absolute -top-2 -right-2 bg-transparent border hover:bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-semibold flex items-center">
         Add <ShoppingCart className="ml-1 w-4 h-4" />
       </button>
     </div>

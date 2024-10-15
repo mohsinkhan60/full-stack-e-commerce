@@ -1,6 +1,6 @@
 import { ShoppingCart } from "lucide-react";
 
-export const Header = () => {
+const Header = () => {
   return (
     <div className="relative w-full mt-10 mb-10 overflow-hidden rounded-3xl bg-[#D3EBC0]">
       <img

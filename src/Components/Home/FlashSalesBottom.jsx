@@ -1,27 +1,10 @@
+import { flashSalesBottom } from "../../../Data";
 
-
-export const FlashSalesBottom = () => {
-  const banners = [
-    {
-      id: 1,
-      image: "/Home/offer-img1.png",
-      alt: "Basket of fresh produce and groceries",
-      title: "$5 off your first order",
-      description: "Delivery by 6:15am expired Aug 5",
-    },
-    {
-      id: 2,
-      image: "/Home/offer-img2.png",
-      alt: "Fresh fish with lemon slices and herbs",
-      title: "$5 off your first order",
-      description: "Delivery by 6:15am expired Aug 5",
-    },
-  ];
-
+const FlashSalesBottom = () => {
   return (
     <div className="container mx-auto max-w-full my-5 lg:px-4 xl:px-5">
       <div className="grid gap-6 md:grid-cols-2">
-        {banners.map((banner) => (
+        {flashSalesBottom.map((banner) => (
           <div key={banner.id} className="flex-shrink-0 ">
             <div className="relative bg-emerald-500 h-64 rounded-3xl text-white p-6 md:p-8 lg:p-10">
               <img

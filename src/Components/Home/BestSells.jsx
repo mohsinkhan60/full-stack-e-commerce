@@ -28,7 +28,9 @@ const ProductCard = ({
         <Star className="w-5 h-5 text-yellow-400 mr-1" fill="currentColor" />
         <span className="text-sm text-gray-600">({reviews}k)</span>
       </div>
-      <h3 className="font-semibold hover:text-green-600 cursor-pointer mb-2">{title}</h3>
+      <h3 className="font-semibold hover:text-green-600 cursor-pointer mb-2">
+        {title}
+      </h3>
       <div className="flex items-center mb-2">
         <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full mr-2">
           <ShoppingCart className="w-4 h-4 inline mr-1" />
@@ -63,8 +65,7 @@ const SpecialOffer = () => (
 export const BestSells = () => {
   const products = [
     {
-      image:
-        "/Home/best-sell1.png",
+      image: "/Home/best-sell1.png",
       title: "Taylor Farms Broccoli Florets Vegetables",
       rating: 4.8,
       reviews: 17,
@@ -73,8 +74,7 @@ export const BestSells = () => {
       total: 35,
     },
     {
-      image:
-        "/Home/best-sell2.png",
+      image: "/Home/best-sell2.png",
       title: "Taylor Farms Broccoli Florets Vegetables",
       rating: 4.8,
       reviews: 17,
@@ -83,8 +83,7 @@ export const BestSells = () => {
       total: 35,
     },
     {
-      image:
-        "/Home/best-sell3.png",
+      image: "/Home/best-sell3.png",
       title: "Taylor Farms Broccoli Florets Vegetables",
       rating: 4.8,
       reviews: 17,
@@ -93,8 +92,7 @@ export const BestSells = () => {
       total: 35,
     },
     {
-      image:
-        "/Home/best-sell4.png",
+      image: "/Home/best-sell4.png",
       title: "Taylor Farms Broccoli Florets Vegetables",
       rating: 4.8,
       reviews: 17,

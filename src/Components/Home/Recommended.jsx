@@ -104,7 +104,7 @@ const ProductCard = ({ product }) => (
 export const Recommended = () => {
   return (
    <div className="container mx-auto max-w-full my-10 px-2 lg:px-4 xl:px-5">
-      <h1 className="text-4xl font-semibold my-6">Recommended for you</h1>
+      <h1 className="text-4xl font-semibold">Recommended for you</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
         {products.map(product => (
           <ProductCard key={product.id} product={product} />

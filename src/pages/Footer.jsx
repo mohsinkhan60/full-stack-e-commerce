@@ -7,7 +7,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
-      <footer className="bg-white text-gray-600  flex items-center justify-center py-8 sm:px-6 container mx-auto max-w-full my-10 px-2 lg:px-4 xl:px-5">
+      <footer className="bg-[#F3FAF2] text-gray-600  flex items-center justify-center py-8 sm:px-6 container mx-auto max-w-full mt-10 px-2 lg:px-4 xl:px-5">
         <div className="max-w-7xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-8">
             {/* Company Info */}
@@ -157,7 +157,8 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <div className="bg-[#F3FAF2] container mx-auto max-w-full px-2 lg:px-4 xl:px-5 h-20">
+      <hr />
+      <div className="bg-[#F3FAF2] container mx-auto max-w-full px-2 lg:px-4 xl:px-5 h-32">
         <div className="text-xl flex items-center justify-center py-4 text-[#888888]">
           Marketpro eCommerce © 2024. All Rights Reserved. Made BY Mohsin Khan ...
         </div>

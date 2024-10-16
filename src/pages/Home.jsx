@@ -6,6 +6,7 @@ import FlashSalesBottom from "../Components/Home/FlashSalesBottom"
 import FreshProducts from "../Components/Home/FreshProducts"
 import Header from "../Components/Home/Header"
 import HotDeals from "../Components/Home/HotDeals"
+import NewArrivals from "../Components/Home/NewArrivals"
 import OrganicFood from "../Components/Home/OrganicFood"
 import OrganicFoodBottom from "../Components/Home/OrganicFoodBottom"
 import Recommended from "../Components/Home/Recommended"
@@ -27,6 +28,7 @@ export const Home = () => {
       <OrganicFood />
       <OrganicFoodBottom />
       <Brands />
+      <NewArrivals />
     </div>
   )
 }

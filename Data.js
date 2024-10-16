@@ -60,6 +60,68 @@ export const organicFoods = [
     discountedPrice: 14.99,
   },
 ];
+export const NewArrival = [
+  {
+    id: 1,
+    name: "Silk Almond Milk",
+    image: "/Home/product-img20.png",
+    rating: 4.8,
+    reviews: 17000,
+    seller: "Lucky Supermarket",
+    originalPrice: 28.99,
+    discountedPrice: 14.99,
+  },
+  {
+    id: 2,
+    name: "SunButter Sunflower",
+    image: "/Home/product-img21.png",
+    rating: 4.8,
+    reviews: 17000,
+    seller: "Lucky Supermarket",
+    originalPrice: 28.99,
+    discountedPrice: 14.99,
+  },
+  {
+    id: 3,
+    name: "Hemp Hearts",
+    image: "/Home/product-img22.png",
+    rating: 4.8,
+    reviews: 17000,
+    seller: "Lucky Supermarket",
+    originalPrice: 28.99,
+    discountedPrice: 14.99,
+  },
+  {
+    id: 4,
+    name: "Red Mill Granola",
+    image: "/Home/product-img23.png",
+    rating: 4.8,
+    reviews: 17000,
+    seller: "Lucky Supermarket",
+    originalPrice: 28.99,
+    discountedPrice: 14.99,
+  },
+  {
+    id: 5,
+    name: "Nutty Granola",
+    image: "/Home/product-img24.png",
+    rating: 4.8,
+    reviews: 17000,
+    seller: "Lucky Supermarket",
+    originalPrice: 28.99,
+    discountedPrice: 14.99,
+  },
+  {
+    id: 6,
+    name: "Organic Girl",
+    image: "/Home/product-img25.png",
+    rating: 4.8,
+    reviews: 17000,
+    seller: "Lucky Supermarket",
+    originalPrice: 28.99,
+    discountedPrice: 14.99,
+  },
+];
 
 export const weeklyTops = [
   {

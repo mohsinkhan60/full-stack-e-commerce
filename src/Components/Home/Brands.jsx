@@ -19,7 +19,7 @@ const Brands = () => {
 
   return (
     <div className='container mx-auto flex items-center justify-center max-w-full my-10 px-2 lg:px-4 xl:px-5'>
-    <div className="bg-green-50 p-6 rounded-2xl container mx-3 lg:mx-6 max-w-full my-10 px-2 lg:px-4 xl:px-5">
+    <div className="bg-green-50 p-6 rounded-2xl container max-w-full my-10 px-2 lg:px-4 xl:px-5">
       <div className="flex justify-between mx-0 sm:mx-7 items-center mb-4">
         <h2 className="text-2xl font-bold text-gray-800">Shop by Brands</h2>
         <div className="flex items-center space-x-3">

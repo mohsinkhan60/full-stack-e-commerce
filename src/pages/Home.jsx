@@ -1,5 +1,6 @@
 import BestSells from "../Components/Home/BestSells"
 import BestSellsFooter from "../Components/Home/BestSellsFooter"
+import Brands from "../Components/Home/Brands"
 import FlashSales from "../Components/Home/FlashSales"
 import FlashSalesBottom from "../Components/Home/FlashSalesBottom"
 import FreshProducts from "../Components/Home/FreshProducts"
@@ -25,6 +26,7 @@ export const Home = () => {
       <BestSellsFooter />
       <OrganicFood />
       <OrganicFoodBottom />
+      <Brands />
     </div>
   )
 }

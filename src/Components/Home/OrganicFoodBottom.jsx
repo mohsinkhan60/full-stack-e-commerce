@@ -5,18 +5,18 @@ import { productItems, productSections } from "../../../Data";
 
 const ProductItem = ({ product }) => {
   return (
-    <div className="flex items-center space-x-4 hover:border rounded-xl px-2 py-2">
+    <div className="flex items-center space-x-4 rounded-xl px-2 py-2">
       <img
         src={product.image}
         alt={product.name}
-        className="w-20 h-20 border object-cover rounded-xl"
+        className="w-20 h-20 border cursor-pointer object-cover rounded-xl"
       />
       <div className="flex-grow">
         <div className="flex items-center">
           <Star className="w-4 h-4 text-yellow-400 mr-1" />
           <span className="text-sm text-gray-500">(17k)</span>
         </div>
-        <h3 className="text-sm font-medium">{product.name}</h3>
+        <h3 className="text-lg hover:text-green-500 cursor-pointer font-medium">{product.name}</h3>
         <div className="flex items-center space-x-2">
           <span className="font-bold">${(product.price / 100).toFixed(2)}</span>
           <span className="text-sm text-gray-500 line-through">

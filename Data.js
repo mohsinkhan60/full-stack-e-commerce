@@ -325,3 +325,12 @@ export const productSections = [
   { title: "On-sale Products" },
   { title: "Top Rated Products" },
 ];
+
+export const brands = [
+  { name: "Organic Healthy Food", image: "/Home/brand-img1.png" },
+  { name: "Passion For Organic Quality", image: "/Home/brand-img2.png" },
+  { name: "The Organic Shop", image: "/Home/brand-img3.png" },
+  { name: "The Best Organic Food", image: "/Home/brand-img4.png" },
+  { name: "Passion For Organic Quality", image: "/Home/brand-img6.png" },
+  { name: "The Organic Shop", image: "/Home/brand-img1.png" },
+];

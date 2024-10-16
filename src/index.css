@@ -1,16 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
- @tailwind base;
- @tailwind components;
- @tailwind utilities;
- 
- @layer base {
-    * {
-      @apply p-0 m-0 box-border font-[outfit];
-    }
-  
-    body {
-      @apply overflow-x-hidden;
-    }
- 
+@layer base {
+  * {
+    @apply p-0 m-0 box-border font-[outfit];
   }
-  
+
+  body {
+    @apply overflow-x-hidden;
+  }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

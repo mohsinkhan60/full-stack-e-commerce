@@ -9,7 +9,7 @@ const BestSellsFooter = () => {
               alt="Delivery person on scooter"
               width={200}
               height={200}
-              className="w-40 h-40 md:w-48 md:h-48 object-contain"
+              className="w-40 h-40 md:w-60 md:h-60 object-contain"
             />
           </div>
           <div className="text-center md:text-left flex flex-col items-center mb-6 md:mb-0">
@@ -28,7 +28,7 @@ const BestSellsFooter = () => {
             <img
               src="/Home/special-snacks-img (1).png"
               alt="Assorted food items"
-              className="w-48 h-48 object-contain"
+              className="w-60 h-60 object-contain"
             />
           </div>
         </div>

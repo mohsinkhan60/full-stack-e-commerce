@@ -16,7 +16,8 @@ const WeeklyTop = () => {
         {weeklyTops.map((store, index) => (
           <div
             key={index}
-            className={`${store.color} rounded-3xl p-6 flex flex-col items-center`}
+            style={{ backgroundColor: store.color }} // Use inline styles for background color
+            className="rounded-3xl p-6 flex flex-col items-center"
           >
             <div className="bg-white rounded-full p-2">
               <img
@@ -35,6 +36,7 @@ const WeeklyTop = () => {
                 <img
                   key={idx}
                   src={product}
+                  alt={`Product ${idx + 1}`}
                   className="w-14 h-14 rounded-full bg-white object-cover"
                 />
               ))}

@@ -126,42 +126,42 @@ export const NewArrival = [
 export const weeklyTops = [
   {
     name: "Organic Market",
-    color: "bg-[#f5f5e9]",
+    color: "#f5f5e9",
     image: "/Home/vendor-logo1.png",
   },
   {
     name: "Safeway",
-    color: "bg-[#e9f5f5]",
+    color: "#e9f5f5",
     image: "/Home/vendor-logo2.png",
   },
   {
     name: "Food Max",
-    color: "bg-[#f5e9f5]",
+    color: "#f5e9f5",
     image: "/Home/vendor-logo3.png",
   },
   {
     name: "HRmart",
-    color: "bg-[#f5ebe9]",
+    color: "#f5ebe9",
     image: "/Home/vendor-logo4.png",
   },
   {
     name: "Organic Market",
-    color: "bg-[#f5f5e9]",
+    color: "#f5f5e9",
     image: "/Home/vendor-logo5.png",
   },
   {
     name: "Safeway",
-    color: "bg-[#e9f5f5]",
+    color: "#e9f5f5",
     image: "/Home/vendor-logo6.png",
   },
   {
     name: "Food Max",
-    color: "bg-[#f5e9f5]",
+    color: "#f5e9f5",
     image: "/Home/vendor-logo1.png",
   },
   {
     name: "HRmart",
-    color: "bg-[#f5ebe9]",
+    color: "#f5ebe9",
     image: "/Home/vendor-logo2.png",
   },
 ];

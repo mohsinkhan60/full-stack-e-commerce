@@ -1,13 +1,20 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import RootLayout from "./Layout/RootLayout";
 import Home from "./pages/Home";
-import Navbar from "./pages/Navbar";
-
 
 export const App = () => {
+  
+
   return (
-    <div>
-      <Navbar />
-      <Home />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* Root Routes */}
+        <Route path="/" element={<RootLayout />}>
+          <Route index element={<Home />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
+
 export default App;

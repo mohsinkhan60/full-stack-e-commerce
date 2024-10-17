@@ -160,7 +160,8 @@ const Footer = () => {
       <hr />
       <div className="bg-[#F3FAF2] container mx-auto max-w-full px-2 lg:px-4 xl:px-5 h-32">
         <div className="text-xl flex items-center justify-center py-4 text-[#888888]">
-          Marketpro eCommerce © 2024. All Rights Reserved. Made BY Mohsin Khan ...
+          Marketpro eCommerce © 2024. All Rights Reserved. Made BY Mohsin Khan
+          ...
         </div>
       </div>
     </>

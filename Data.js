@@ -396,3 +396,26 @@ export const brands = [
   { name: "Passion For Organic Quality", image: "/Home/brand-img6.png" },
   { name: "The Organic Shop", image: "/Home/brand-img1.png" },
 ];
+
+export const FreshProductsCards = [
+  {
+    title: "Everyday Fresh Meat",
+    image: "/Home/featureBanner-img1.png",
+    color: "bg-yellow-50",
+  },
+  {
+    title: "Daily Fresh Vegetables",
+    image: "/Home/featureBanner-img2.png",
+    color: "bg-green-50",
+  },
+  {
+    title: "Everyday Fresh Milk",
+    image: "/Home/featureBanner-img3.png",
+    color: "bg-pink-50",
+  },
+  {
+    title: "Everyday Fresh Fruits",
+    image: "/Home/featureBanner-img4.png",
+    color: "bg-yellow-50",
+  },
+];

@@ -1,29 +1,8 @@
 /* eslint-disable react/prop-types */
 import { IoIosArrowRoundForward } from "react-icons/io";
-import { freshProducts } from "../../../Data";
+import { freshProducts, FreshProductsCards } from "../../../Data";
 
-const cards = [
-  {
-    title: "Everyday Fresh Meat",
-    image: "/Home/featureBanner-img1.png",
-    color: "bg-yellow-50",
-  },
-  {
-    title: "Daily Fresh Vegetables",
-    image: "/Home/featureBanner-img2.png",
-    color: "bg-green-50",
-  },
-  {
-    title: "Everyday Fresh Milk",
-    image: "/Home/featureBanner-img3.png",
-    color: "bg-pink-50",
-  },
-  {
-    title: "Everyday Fresh Fruits",
-    image: "/Home/featureBanner-img4.png",
-    color: "bg-yellow-50",
-  },
-];
+
 
 const Card = ({ title, image }) => {
   return (
@@ -66,7 +45,7 @@ const FreshProducts = () => {
         ))}
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 my-10">
-        {cards.map((card, index) => (
+        {FreshProductsCards.map((card, index) => (
           <Card key={index} {...card} />
         ))}
       </div>

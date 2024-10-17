@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { IoIosArrowRoundForward } from "react-icons/io";
-import { freshProducts, FreshProductsCards } from "../../../Data";
+import { freshProducts, FreshProductsCards } from "../../Data";
+
 
 
 

@@ -1,4 +1,5 @@
-import { flashSalesBottom } from "../../../Data";
+import { flashSalesBottom } from "../../Data";
+
 
 const FlashSalesBottom = () => {
   return (

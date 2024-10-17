@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 
 import { Star } from "lucide-react";
-import { productItems, productSections } from "../../../Data";
+import { productItems, productSections } from "../../Data";
+
 
 const ProductItem = ({ product }) => {
   return (

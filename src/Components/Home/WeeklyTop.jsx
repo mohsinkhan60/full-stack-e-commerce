@@ -1,4 +1,4 @@
-import { weeklyTops } from "../../../Data";
+import { weeklyTops } from "../../Data";
 
 const products = [
   "/Home/feature-img2.png",

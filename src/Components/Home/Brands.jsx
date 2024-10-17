@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { brands } from '../../../Data';
+import { brands } from '../../Data';
+
 
 
 

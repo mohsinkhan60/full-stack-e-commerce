@@ -1,5 +1,6 @@
 import { ShoppingCart, Star } from "lucide-react";
-import { flashSales } from "../../../Data";
+import { flashSales } from "../../Data";
+
 
 /* eslint-disable react/prop-types */
 

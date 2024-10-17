@@ -2,7 +2,8 @@
 /* eslint-disable react/prop-types */
 
 import { ShoppingCart } from "lucide-react";
-import { NewArrival } from "../../../Data";
+import { NewArrival } from "../../Data";
+
 
 const StarIcon = () => (
   <svg

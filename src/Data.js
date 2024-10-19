@@ -551,6 +551,18 @@ export const ShopMainProducts = [
     total: 35,
     label: "Sale 50%",
   },
+  {
+    id: 12,
+    name: "Taylor Farms Broccoli Florets Vegetables",
+    image: "/Shop/product-two-img10.png",
+    rating: 4.8,
+    reviews: "17k",
+    originalPrice: 28.99,
+    salePrice: 14.99,
+    sold: 18,
+    total: 35,
+    label: "Sale 50%",
+  },
 ];
 
 export const ShopSidebarCategories = [

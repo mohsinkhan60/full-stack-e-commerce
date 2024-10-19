@@ -128,14 +128,14 @@ const Footer = () => {
                   <img
                     src="/Home/store-img1.png"
                     alt="Download on App Store"
-                    className="h-10"
+                    className="h-9 w-full"
                   />
                 </a>
                 <a href="#" className="block">
                   <img
                     src="/Home/store-img2.png"
                     alt="Get it on Google Play"
-                    className="h-10"
+                    className="h-9 w-full"
                   />
                 </a>
               </div>

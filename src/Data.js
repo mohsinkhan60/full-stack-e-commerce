@@ -468,7 +468,7 @@ export const ShopMainProducts = [
     label: "Sale 50%",
   },
   {
-    id: 4,
+    id: 5,
     name: "Taylor Farms Broccoli Florets Vegetables",
     image: "/Shop/product-two-img5.png",
     rating: 4.8,
@@ -480,7 +480,7 @@ export const ShopMainProducts = [
     label: "Sale 50%",
   },
   {
-    id: 4,
+    id: 6,
     name: "Taylor Farms Broccoli Florets Vegetables",
     image: "/Shop/product-two-img6.png",
     rating: 4.8,
@@ -492,7 +492,7 @@ export const ShopMainProducts = [
     label: "Sale 50%",
   },
   {
-    id: 4,
+    id: 7,
     name: "Taylor Farms Broccoli Florets Vegetables",
     image: "/Shop/product-two-img7.png",
     rating: 4.8,
@@ -504,7 +504,7 @@ export const ShopMainProducts = [
     label: "Sale 50%",
   },
   {
-    id: 4,
+    id: 8,
     name: "Taylor Farms Broccoli Florets Vegetables",
     image: "/Shop/product-two-img8.png",
     rating: 4.8,
@@ -516,7 +516,7 @@ export const ShopMainProducts = [
     label: "Sale 50%",
   },
   {
-    id: 4,
+    id: 9,
     name: "Taylor Farms Broccoli Florets Vegetables",
     image: "/Shop/product-two-img9.png",
     rating: 4.8,
@@ -528,7 +528,7 @@ export const ShopMainProducts = [
     label: "Sale 50%",
   },
   {
-    id: 4,
+    id: 10,
     name: "Taylor Farms Broccoli Florets Vegetables",
     image: "/Shop/product-two-img10.png",
     rating: 4.8,
@@ -540,7 +540,7 @@ export const ShopMainProducts = [
     label: "Sale 50%",
   },
   {
-    id: 4,
+    id: 11,
     name: "Taylor Farms Broccoli Florets Vegetables",
     image: "/Shop/product-two-img4.png",
     rating: 4.8,
@@ -550,5 +550,39 @@ export const ShopMainProducts = [
     sold: 18,
     total: 35,
     label: "Sale 50%",
+  },
+];
+
+export const ShopSidebarCategories = [
+  "Mobile & Accessories (12)",
+  "Laptop (12)",
+  "Electronics (12)",
+  "Smart Watch (12)",
+  "Storage (12)",
+  "Portable Devices (12)",
+  "Action Camera (12)",
+  "Smart Gadget (12)",
+  "Monitor (12)",
+  "Smart TV (12)",
+  "Camera (12)",
+  "Monitor Stand (12)",
+];
+
+export const ShopSidebarColorOptions = [
+  { name: "Black", count: 12, class: "bg-black", color: `border-black` },
+  { name: "Blue", count: 12, class: "bg-blue-600", color: `border-blue-600` },
+  { name: "Gray", count: 12, class: "bg-gray-500", color: `border-gray-500` },
+  {
+    name: "Green",
+    count: 12,
+    class: "bg-green-500",
+    color: `border-green-500`,
+  },
+  { name: "Red", count: 12, class: "bg-red-500", color: `border-red-500` },
+  {
+    name: "Purple",
+    count: 12,
+    class: "bg-purple-600",
+    color: `border-purple-600`,
   },
 ];

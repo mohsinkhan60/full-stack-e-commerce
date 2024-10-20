@@ -48,7 +48,7 @@ const AboutFooter = () => {
   ]
 
   return (
-    <div className=" py-16 max-w-7xl container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className=" container mx-auto max-w-full my-5 lg:px-4 xl:px-5">
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">Team Member</h2>
       <div className="w-16 h-1 bg-orange-500 mx-auto mb-12"></div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

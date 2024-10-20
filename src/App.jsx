@@ -1,7 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import RootLayout from "./Layout/RootLayout";
+import About from "./pages/About";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
+import ContactUs from "./Components/Contact/ContactUs";
 
 export const App = () => {
   
@@ -13,6 +15,8 @@ export const App = () => {
         <Route path="/" element={<RootLayout />}>
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<ContactUs />} />
         </Route>
       </Routes>
     </BrowserRouter>

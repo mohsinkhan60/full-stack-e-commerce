@@ -3,8 +3,10 @@ import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoSearchSharp } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
+  const navigate = useNavigate()
   const [category, setCategory] = useState("All Categories");
   return (
     <header className="bg-[#F3FAF2] flex items-center justify-center shadow-sm sticky top-0 left-0 z-[50000] w-full h-32">
@@ -19,7 +21,7 @@ export const Header = () => {
               <button>Login</button>
             </div>
             <div className="flex sm:hidden border px-4 mx-1 rounded-full border-black py-2 items-center">
-              <button>Register</button>
+              <button onClick={() => navigate("/login")}>Register</button>
             </div>
 
             <div className="relative hidden lg:flex items-center flex-1 mx-3">

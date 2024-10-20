@@ -1,8 +1,10 @@
 
 import { ChevronDown, Menu } from 'lucide-react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const HeaderNavbar = () => {
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -29,7 +31,7 @@ export const HeaderNavbar = () => {
               <button>Login</button>
             </div>
             <div className="border px-4 mx-1 rounded-full border-black py-2 items-center">
-              <button>Register</button>
+              <button  onClick={() => navigate("/login")}>Register</button>
             </div>
             </div>
             <button onClick={() => setIsOpen(!isOpen)} className="ml-4 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden">

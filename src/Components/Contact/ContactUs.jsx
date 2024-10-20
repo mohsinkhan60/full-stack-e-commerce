@@ -3,7 +3,7 @@ import { Phone, Mail, MapPin } from "lucide-react";
 export const ContactUs = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-4 p-8 container mx-auto max-w-full my-5 lg:px-4 xl:px-5">
-      <div className="flex-1 bg-white p-8 rounded-lg border shadow-md">
+      <div className="flex-1 bg-white p-8 rounded-lg border shadow-sm">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
           Make Custom Request
         </h2>
@@ -101,7 +101,7 @@ export const ContactUs = () => {
         </form>
       </div>
       <div className="flex flex-col">
-        <div className="flex-[.4] bg-white p-8 rounded-lg border shadow-md">
+        <div className="flex-[.4] bg-white p-8 rounded-lg border shadow-sm">
           <h2 className="text-2xl font-bold mb-6 text-gray-800">
             Get In Touch
           </h2>

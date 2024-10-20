@@ -3,7 +3,7 @@ import RootLayout from "./Layout/RootLayout";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
-import ContactUs from "./Components/Contact/ContactUs";
+import Contact from "./pages/Contact";
 
 export const App = () => {
   
@@ -16,7 +16,7 @@ export const App = () => {
           <Route index element={<Home />} />
           <Route path="shop" element={<Shop />} />
           <Route path="about" element={<About />} />
-          <Route path="contact" element={<ContactUs />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
       </Routes>
     </BrowserRouter>

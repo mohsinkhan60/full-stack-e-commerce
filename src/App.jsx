@@ -6,10 +6,12 @@ import Shop from "./pages/Shop";
 import Contact from "./pages/Contact";
 import AuthLayout from "./Layout/AuthLayout";
 import Login from "./pages/Login";
+import { ToastContainer } from "react-toastify";
 
 export const App = () => {
   return (
     <BrowserRouter>
+    <ToastContainer autoClose={3000} position="top-right" />
       <Routes>
         {/* Root Routes */}
         <Route path="/" element={<RootLayout />}>

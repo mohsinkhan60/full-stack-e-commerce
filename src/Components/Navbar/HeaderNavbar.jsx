@@ -28,7 +28,7 @@ export const HeaderNavbar = () => {
           <div className="flex items-center">
             <div className="hidden md:flex items-center space-x-4">
               <div className=" border mx-1 px-4 rounded-full border-black py-2 items-center">
-              <button>Login</button>
+              <button  onClick={() => navigate("/login")}>Login</button>
             </div>
             <div className="border px-4 mx-1 rounded-full border-black py-2 items-center">
               <button  onClick={() => navigate("/login")}>Register</button>

@@ -12,8 +12,9 @@ export const Header = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState("All Categories");
   const [isOpen, setIsOpen] = useState(false);
+
   const logout = async (e) => {
-    e.preventDefault;
+    e.preventDefault(); // Fixed this line
     try {
       await signOut(auth);
       navigate("/login");
@@ -21,6 +22,7 @@ export const Header = () => {
       console.log("Error during sign out...");
     }
   };
+
   return (
     <header className="bg-[#F3FAF2] flex items-center justify-center shadow-sm sticky top-0 left-0 z-[50000] w-full h-32">
       <div className="container mx-auto max-w-full px-2 lg:px-4 xl:px-5">
@@ -30,12 +32,16 @@ export const Header = () => {
           </div>
 
           <div className="flex items-center flex-1 mx-3">
-            <div className="flex sm:hidden border mx-1 px-4 rounded-full border-black py-2 items-center">
-              <button onClick={() => navigate("/login")}>Login</button>
-            </div>
-            <div className="flex sm:hidden border px-4 mx-1 rounded-full border-black py-2 items-center">
-              <button onClick={() => navigate("/login")}>Register</button>
-            </div>
+            {!auth.currentUser ? (
+              <>
+                <div className="flex sm:hidden border mx-1 px-4 rounded-full border-black py-2 items-center">
+                  <button onClick={() => navigate("/login")}>Login</button>
+                </div>
+                <div className="flex sm:hidden border px-4 mx-1 rounded-full border-black py-2 items-center">
+                  <button onClick={() => navigate("/login")}>Register</button>
+                </div>
+              </>
+            ) : <></>}
 
             <div className="relative hidden lg:flex items-center flex-1 mx-3">
               <div className="relative">
@@ -46,7 +52,7 @@ export const Header = () => {
                 >
                   <option>All Categories</option>
                   <option>Grocery</option>
-                  <option>Brakefast & Dairy</option>
+                  <option>Breakfast & Dairy</option>
                   <option>Milk & Dairies</option>
                   <option>Pet Food & Toys</option>
                 </select>
@@ -59,15 +65,18 @@ export const Header = () => {
                 className="border-2 bg-transparent border-black rounded-full px-4 py-2 w-full"
                 placeholder="Search for a Product ..."
                 type="text"
+                name="search"
               />
               <IoSearchSharp className="absolute right-3 h-6 w-6 text-gray-500 cursor-pointer" />
             </div>
           </div>
 
+          {auth.currentUser &&(
           <div className="relative">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="flex items-center mx-0 sm:mx-3"
+              aria-label="Profile menu"
             >
               <CgProfile
                 className="h-6 w-6 text-gray-700 cursor-pointer"
@@ -80,13 +89,15 @@ export const Header = () => {
               <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4 z-50">
                 <button
                   onClick={logout}
-                  className=" text-blue-500 hover:underline"
+                  className="text-blue-500 hover:underline"
+                  aria-label="Logout"
                 >
                   Logout
                 </button>
               </div>
             )}
           </div>
+          )}
 
           <div className="hidden md:flex items-center mx-0 sm:mx-3">
             <FaRegHeart

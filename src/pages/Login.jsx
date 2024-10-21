@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
+import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { auth, db } from "../../firebasse";
-import { toast } from "react-toastify";
 
 
 const Login = () => {
@@ -27,10 +26,10 @@ const Login = () => {
         email: email,
         isAdmin: false,
       });
-      toast.success("successfully Registered")
+
       navigate("/");
     } catch (error) {
-      toast.error(" Failed to register");
+
       console.error(`Failed to register: ${error.message}`);
     }
   };
@@ -39,10 +38,10 @@ const Login = () => {
   const login = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      toast.success("successfully Login")
+
       navigate("/");
     } catch (error) {
-      toast.error(" Failed to register");
+
       console.error(`Failed to authenticate: ${error.message}`);
     }
 
@@ -50,7 +49,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const loadingToast = toast.loading("Loading...");
+
     setLoading(true);
 
     try {
@@ -60,10 +59,10 @@ const Login = () => {
         await login(email, password);
       }
     } catch (error) {
-      toast.error("Failed to authenticate");
+
       console.error("Failed to authenticate");
     } finally {
-      toast.dismiss(loadingToast);
+
       setLoading(false);
     }
   };

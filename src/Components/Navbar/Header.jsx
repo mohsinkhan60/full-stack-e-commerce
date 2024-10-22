@@ -86,13 +86,20 @@ export const Header = () => {
             </button>
 
             {isOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4 z-50">
+              <div className="absolute flex-col flex gap-2 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4 z-50">
                 <button
                   onClick={logout}
                   className="text-blue-500 hover:underline"
                   aria-label="Logout"
                 >
                   Logout
+                </button>
+                <button
+                  onClick={() => navigate("/addToCart")} 
+                  className="text-blue-500 hover:underline"
+                  aria-label="Logout"
+                >
+                  Add To Cart
                 </button>
               </div>
             )}

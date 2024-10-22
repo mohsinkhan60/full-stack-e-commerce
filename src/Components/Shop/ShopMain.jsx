@@ -10,7 +10,6 @@ const ShopMain = () => {
         <div className="flex items-center space-x-4">
           <select className="p-2 border rounded" defaultValue="Popular">
             <option>Popular</option>
-            <option>Newest</option>
             <option>Price: Low to High</option>
             <option>Price: High to Low</option>
           </select>

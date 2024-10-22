@@ -8,6 +8,7 @@ import AuthLayout from "./Layout/AuthLayout";
 import Login from "./pages/Login";
 import { ToastContainer } from "react-toastify";
 import Cart from "./pages/Cart";
+import Favourite from "./pages/Favourite";
 
 export const App = () => {
   return (
@@ -21,6 +22,7 @@ export const App = () => {
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="favourite" element={<Favourite />} />
         </Route>
 
         {/* Auth Routes */}

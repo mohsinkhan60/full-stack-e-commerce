@@ -107,7 +107,7 @@ export const Header = () => {
             <span className="mx-0 sm:mx-1 text-gray-500">Wishlist</span>
           </div>
 
-          <div className="hidden md:flex items-center mx-0 sm:mx-3">
+          <div onClick={() => navigate("/cart")} className="hidden md:flex items-center mx-0 sm:mx-3">
             <FiShoppingCart
               className="h-6 w-6 text-gray-700 cursor-pointer"
               aria-label="Cart"

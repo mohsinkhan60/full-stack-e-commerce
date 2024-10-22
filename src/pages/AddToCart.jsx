@@ -5,8 +5,10 @@ import { useState } from "react";
 import { FaPlus, FaTags } from "react-icons/fa";
 import { auth, db, storage } from "../../firebasse";
 import { addDoc, collection } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const AddToCart = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     image: null,
     name: "",
@@ -53,7 +55,9 @@ const AddToCart = () => {
       description: "",
       date: Date.now(),
     });
+    navigate("/shop")
   };
+  
 
   return (
     <div className="container mx-auto p-4 pt-20 max-w-4xl">

@@ -28,6 +28,8 @@ const products = [
   },
 ];
 
+
+
 const Cart = () => {
   const [quantities, setQuantities] = useState(products.map(() => 1));
 

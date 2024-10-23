@@ -4,6 +4,7 @@ const initialState = {
   products: [],
   totalQuantity: 0,
   totalPrice: 0,
+  favorites: [],
 };
 
 const cartSlice = createSlice({
@@ -39,28 +40,27 @@ const cartSlice = createSlice({
         state.products = state.products.filter((item) => item.id !== id);
       }
     },
+    addToFavorite(state, action) {
+      const newItem = action.payload;
+      if (!Array.isArray(state.favorites)) {
+          state.favorites = [];
+      }
+  
+      const exists = state.favorites.find((item) => item.id === newItem.id);
+      if (!exists) {
+          state.favorites.push(newItem);
+      } else {
+        alert("This Item is Already in Favourites")
+      }
+  },
+  
     
-    incrementQuantity(state, action) {
+    removeFromFavorite(state, action) {
       const id = action.payload;
-      const existingItem = state.products.find((item) => item.id === id);
+      const existingItem = state.favorites.find((item) => item.id === id);
 
       if (existingItem) {
-        existingItem.quantity++;
-        existingItem.totalPrice += existingItem.price;
-        state.totalPrice += existingItem.price;
-        state.totalQuantity++;
-      }
-    },
-    
-    decrementQuantity(state, action) {
-      const id = action.payload;
-      const existingItem = state.products.find((item) => item.id === id);
-
-      if (existingItem && existingItem.quantity > 1) {
-        existingItem.quantity--;
-        existingItem.totalPrice -= existingItem.price;
-        state.totalPrice -= existingItem.price;
-        state.totalQuantity--;
+        state.favorites = state.favorites.filter((item) => item.id !== id);
       }
     },
   },
@@ -69,8 +69,8 @@ const cartSlice = createSlice({
 export const {
   addToCart,
   removeFromCart,
-  incrementQuantity,
-  decrementQuantity,
+  addToFavorite,
+  removeFromFavorite,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

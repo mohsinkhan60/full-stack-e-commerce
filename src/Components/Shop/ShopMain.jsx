@@ -1,9 +1,10 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
+import { CiHeart } from "react-icons/ci";
 import { getDownloadURL, ref } from "firebase/storage";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../store/slices/Cart";
+import { addToCart, addToFavorite } from "../store/slices/Cart";
 import { db, storage } from "../../../firebasse";
 
 const getAllProducts = async () => {
@@ -33,6 +34,11 @@ const ShopMain = () => {
     e.stopPropagation();
     e.preventDefault();
     dispatch(addToCart(product));
+  };
+  const handleAddFavourite = (e, product) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(addToFavorite(product));
   };
 
   return (
@@ -78,13 +84,21 @@ const ShopMain = () => {
                   )}
                 </div>
               </div>
+              <div className="flex flex-row gap-2">
               <button
                 onClick={(e) => handleAddToCart(e, product)}
-                className="w-full flex items-center justify-center gap-3 bg-[#F1F1F1] rounded p-1 hover:text-white hover:bg-orange-500 transition-colors"
+                className="w-full flex-1 flex items-center justify-center gap-3 bg-[#F1F1F1] rounded p-1 hover:text-white hover:bg-orange-500 transition-colors"
               >
                 Add To Cart
                 <IoCartOutline />
               </button>
+              <button
+              onClick={(e) => handleAddFavourite(e, product)}
+                className=" flex flex-[.2] items-center justify-center bg-[#F1F1F1] rounded p-1 hover:text-white hover:bg-orange-500 transition-colors"
+              >
+                <CiHeart className="w-8 h-8" />
+              </button>
+              </div>
             </div>
           </div>
         ))}

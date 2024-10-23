@@ -6,7 +6,7 @@ import { removeFromCart } from "../Components/store/slices/Cart";
 const Cart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.products);
-  const [quantities, setQuantities] = useState(cart.map(() => 1)); // Initialize with cart items
+  const [quantities, setQuantities] = useState(cart.map(() => 1));
 
   const updateQuantity = (index, delta) => {
     setQuantities(

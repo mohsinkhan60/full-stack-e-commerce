@@ -17,6 +17,7 @@ export const Header = () => {
 
   const user = useSelector((state) => state.auth.user);
   const products = useSelector((state) => state.cart.products);
+  const favourites = useSelector((state) => state.cart.favorites);
   const dispatch = useDispatch();
 
   const logout = async (e) => {
@@ -119,6 +120,13 @@ export const Header = () => {
             onClick={() => navigate("/favourite")}
             className="hidden md:flex items-center cursor-pointer mx-0 sm:mx-3"
           >
+            <span
+              className={`absolute top-8 bg-pritext-primary ${
+                favourites?.length > 0 ? " bg-red-500 text-white" : <></>
+              } text-xs w-4 h-4 rounded-full flex items-center justify-center`}
+            >
+              {favourites?.length > 0 ? favourites?.length : <></>}
+            </span>
             <FaRegHeart
               className="h-6 w-6 text-gray-700 cursor-pointer"
               aria-label="Wishlist"

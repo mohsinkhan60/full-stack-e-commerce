@@ -1,11 +1,12 @@
 import { ChevronDown, Menu } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../../firebasse";
+import { useSelector } from "react-redux";
 
 export const HeaderNavbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const user = useSelector((state) => state.auth.user);
 
   return (
     <nav className="bg-white shadow-md">
@@ -47,7 +48,7 @@ export const HeaderNavbar = () => {
 
           <div className="flex items-center">
             <div className="hidden md:flex items-center space-x-4">
-              {!auth.currentUser && (
+              {!user && (
                 <>
                   <button
                     onClick={() => navigate("/login")}

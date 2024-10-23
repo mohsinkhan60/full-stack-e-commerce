@@ -25,7 +25,7 @@ export const Header = () => {
   };
 
   const user = useSelector((state) => state.auth.user);
-
+console.log(user)
 
   return (
     <header className="bg-[#F3FAF2] flex items-center justify-center shadow-sm sticky top-0 left-0 z-[50000] w-full h-32">

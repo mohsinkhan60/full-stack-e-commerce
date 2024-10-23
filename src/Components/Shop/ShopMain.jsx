@@ -1,8 +1,10 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
-import { db, storage } from "../../../firebasse";
 import { getDownloadURL, ref } from "firebase/storage";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/slices/Cart";
+import { db, storage } from "../../../firebasse";
 
 const getAllProducts = async () => {
   const querySnapshot = await getDocs(collection(db, "Products"));
@@ -10,24 +12,35 @@ const getAllProducts = async () => {
 };
 
 const ShopMain = () => {
+  const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       const allProducts = await getAllProducts();
-      const productsWithImageURLs = await Promise.all(allProducts.map(async (product) => {
-        const image = await getDownloadURL(ref(storage, product.image));
-        return { ...product, image };
-      }));
+      const productsWithImageURLs = await Promise.all(
+        allProducts.map(async (product) => {
+          const image = await getDownloadURL(ref(storage, product.image));
+          return { ...product, image };
+        })
+      );
       setProducts(productsWithImageURLs);
     };
     fetchProducts();
   }, []);
 
+  const handleAddToCart = (e, product) => {
+    e.stopPropagation();
+    e.preventDefault();
+    dispatch(addToCart(product));
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-6">
-        <p className="text-sm text-gray-600">Showing 1-{products.length} of {products.length} results</p>
+        <p className="text-sm text-gray-600">
+          Showing 1-{products.length} of {products.length} results
+        </p>
         <div className="flex items-center space-x-4">
           <select className="p-2 border rounded" defaultValue="Popular">
             <option>Popular</option>
@@ -58,12 +71,17 @@ const ShopMain = () => {
                   <span className="text-lg font-bold text-gray-900">
                     ${product.price}
                   </span>
-                  <span className="ml-2 text-sm text-gray-400 line-through">
-                    ${product.price}
-                  </span>
+                  {product.oldPrice && (
+                    <span className="ml-2 text-sm text-gray-400 line-through">
+                      ${product.oldPrice}
+                    </span>
+                  )}
                 </div>
               </div>
-              <button className="w-full flex items-center justify-center gap-3 bg-[#F1F1F1] rounded p-1 hover:text-white hover:bg-orange-500 transition-colors">
+              <button
+                onClick={(e) => handleAddToCart(e, product)}
+                className="w-full flex items-center justify-center gap-3 bg-[#F1F1F1] rounded p-1 hover:text-white hover:bg-orange-500 transition-colors"
+              >
                 Add To Cart
                 <IoCartOutline />
               </button>

@@ -14,7 +14,10 @@ export const Header = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState("All Categories");
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch()
+
+  const user = useSelector((state) => state.auth.user);
+  const products = useSelector((state) => state.cart.products);
+  const dispatch = useDispatch();
 
   const logout = async (e) => {
     e.preventDefault();
@@ -26,8 +29,6 @@ export const Header = () => {
       console.log("Error during sign out...");
     }
   };
-
-  const user = useSelector((state) => state.auth.user);
 
   return (
     <header className="bg-[#F3FAF2] flex items-center justify-center shadow-sm sticky top-0 left-0 z-[50000] w-full h-32">
@@ -129,6 +130,13 @@ export const Header = () => {
             onClick={() => navigate("/cart")}
             className="hidden cursor-pointer md:flex items-center mx-0 sm:mx-3"
           >
+            <span
+              className={`absolute top-8 bg-pritext-primary ${
+                products?.length > 0 ? " bg-red-500 text-white" : <></>
+              } text-xs w-4 h-4 rounded-full flex items-center justify-center`}
+            >
+              {products?.length > 0 ? products?.length : <></>}
+            </span>
             <FiShoppingCart
               className="h-6 w-6 text-gray-700 cursor-pointer"
               aria-label="Cart"

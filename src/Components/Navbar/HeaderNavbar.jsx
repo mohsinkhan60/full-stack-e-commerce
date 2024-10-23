@@ -7,7 +7,6 @@ export const HeaderNavbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
-console.log(user)
   return (
     <nav className="bg-white shadow-md">
       <div className="container xl:px-5 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

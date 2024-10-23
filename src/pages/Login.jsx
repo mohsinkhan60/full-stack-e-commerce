@@ -1,4 +1,7 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
@@ -30,7 +33,7 @@ const Login = () => {
         isAdmin: false,
       });
 
-      dispatch(setUser({ uid: res.user.uid, email, name })); // Dispatch user info
+      dispatch(setUser({ uid: res.user.uid, email, name }));
       navigate("/");
     } catch (error) {
       setError(`Failed to register: ${error.message}`);
@@ -42,7 +45,7 @@ const Login = () => {
   const login = async (email, password) => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      dispatch(setUser({ uid: response.user.uid, email })); // Dispatch user info
+      dispatch(setUser({ uid: response.user.uid, email, name })); // Dispatch user info
       navigate("/");
     } catch (error) {
       setError(`Failed to authenticate: ${error.message}`);
@@ -76,7 +79,10 @@ const Login = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {signState === "Register" && (
             <div>
-              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Username <span className="text-red-500">*</span>
               </label>
               <input
@@ -91,7 +97,10 @@ const Login = () => {
             </div>
           )}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Email address <span className="text-red-500">*</span>
             </label>
             <input
@@ -105,7 +114,10 @@ const Login = () => {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Password <span className="text-red-500">*</span>
             </label>
             <div className="relative">
@@ -133,18 +145,24 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className={`w-full bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`w-full bg-orange-500 text-white py-2 px-4 rounded-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             disabled={loading}
           >
             {signState}
           </button>
           <div className="flex items-center justify-between pb-6">
             <p className="mb-0 mr-2">
-              {signState === "Login" ? "Don't have an account?" : "Already have an account?"}
+              {signState === "Login"
+                ? "Don't have an account?"
+                : "Already have an account?"}
             </p>
             <button
               type="button"
-              onClick={() => setSignState(signState === "Login" ? "Register" : "Login")}
+              onClick={() =>
+                setSignState(signState === "Login" ? "Register" : "Login")
+              }
               className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10"
             >
               {signState === "Login" ? "Register" : "Login"}

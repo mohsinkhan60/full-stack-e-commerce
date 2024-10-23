@@ -3,8 +3,9 @@ import { doc, setDoc } from "firebase/firestore";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { auth, db } from "../../firebasse";
-
+import { setUser } from "../Components/store/slices/Auth";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,7 +14,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // User signup function
   const signup = async (name, email, password) => {
@@ -27,30 +30,30 @@ const Login = () => {
         isAdmin: false,
       });
 
+      dispatch(setUser({ uid: res.user.uid, email, name })); // Dispatch user info
       navigate("/");
     } catch (error) {
-
-      console.error(`Failed to register: ${error.message}`);
+      setError(`Failed to register: ${error.message}`);
+      console.error(error);
     }
   };
 
   // User login function
   const login = async (email, password) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      dispatch(setUser({ uid: response.user.uid, email })); // Dispatch user info
       navigate("/");
     } catch (error) {
-
-      console.error(`Failed to authenticate: ${error.message}`);
+      setError(`Failed to authenticate: ${error.message}`);
+      console.error(error);
     }
-
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
+    setError("");
 
     try {
       if (signState === "Register") {
@@ -58,11 +61,9 @@ const Login = () => {
       } else {
         await login(email, password);
       }
-    } catch (error) {
-
-      console.error("Failed to authenticate");
+    } catch {
+      setError("An unexpected error occurred.");
     } finally {
-
       setLoading(false);
     }
   };
@@ -71,11 +72,12 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-semibold mb-6">{signState}</h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           {signState === "Register" && (
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
-                Username <span className="text-red-500"> *</span>
+                Username <span className="text-red-500">*</span>
               </label>
               <input
                 id="username"
@@ -90,7 +92,7 @@ const Login = () => {
           )}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-              Email address<span className="text-red-500"> *</span>
+              Email address <span className="text-red-500">*</span>
             </label>
             <input
               id="email"
@@ -104,7 +106,7 @@ const Login = () => {
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              Password<span className="text-red-500"> *</span>
+              Password <span className="text-red-500">*</span>
             </label>
             <div className="relative">
               <input
@@ -143,7 +145,7 @@ const Login = () => {
             <button
               type="button"
               onClick={() => setSignState(signState === "Login" ? "Register" : "Login")}
-              className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+              className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10"
             >
               {signState === "Login" ? "Register" : "Login"}
             </button>

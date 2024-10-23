@@ -7,17 +7,20 @@ import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { auth } from "../../../firebasse";
 import { signOut } from "firebase/auth";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUser } from "../store/slices/Auth";
 
 export const Header = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState("All Categories");
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch()
 
   const logout = async (e) => {
     e.preventDefault();
     try {
       await signOut(auth);
+      dispatch(removeUser());
       navigate("/login");
     } catch (error) {
       console.log("Error during sign out...");

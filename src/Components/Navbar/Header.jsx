@@ -5,9 +5,9 @@ import { FiShoppingCart } from "react-icons/fi";
 import { IoSearchSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { auth } from "../../../firebasse";
 import { signOut } from "firebase/auth";
 import { useSelector } from "react-redux";
+import { auth } from "../../../firebasse";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const logout = async (e) => {
-    e.preventDefault(); // Fixed this line
+    e.preventDefault();
     try {
       await signOut(auth);
       navigate("/login");
@@ -25,7 +25,6 @@ export const Header = () => {
   };
 
   const user = useSelector((state) => state.auth.user);
-console.log(user)
 
   return (
     <header className="bg-[#F3FAF2] flex items-center justify-center shadow-sm sticky top-0 left-0 z-[50000] w-full h-32">
@@ -42,7 +41,7 @@ console.log(user)
                   <button onClick={() => navigate("/login")}>Login</button>
                 </div>
                 <div className="flex sm:hidden border px-4 mx-1 rounded-full border-black py-2 items-center">
-                  <button onClick={() => navigate("/login")}>Register</button>
+                  <button onClick={() => navigate("/register")}>Register</button>
                 </div>
               </>
             )}
@@ -86,9 +85,7 @@ console.log(user)
                   className="h-6 w-6 text-gray-700 cursor-pointer"
                   aria-label="Profile"
                 />
-                <span className="mx-0 sm:mx-1 hidden md:flex text-gray-500">
-                  Profile
-                </span>
+                <span className="mx-0 sm:mx-1 hidden md:flex text-gray-500">Profile</span>
               </button>
 
               {isOpen && (
@@ -103,7 +100,7 @@ console.log(user)
                   <button
                     onClick={() => navigate("/addToCart")}
                     className="text-blue-500 hover:underline"
-                    aria-label="Logout"
+                    aria-label="Add to Cart"
                   >
                     Add To Cart
                   </button>

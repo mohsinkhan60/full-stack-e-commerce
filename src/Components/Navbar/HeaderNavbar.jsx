@@ -57,7 +57,7 @@ export const HeaderNavbar = () => {
                     Login
                   </button>
                   <button
-                    onClick={() => navigate("/login")}
+                    onClick={() => navigate("/register")}
                     className="border px-4 mx-1 rounded-full border-black py-2"
                   >
                     Register

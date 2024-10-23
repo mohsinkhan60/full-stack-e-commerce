@@ -5,9 +5,9 @@ import { FiShoppingCart } from "react-icons/fi";
 import { IoSearchSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
+import { auth } from "../../../firebasse";
 import { signOut } from "firebase/auth";
 import { useSelector } from "react-redux";
-import { auth } from "../../../firebasse";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ export const Header = () => {
                   <button onClick={() => navigate("/login")}>Login</button>
                 </div>
                 <div className="flex sm:hidden border px-4 mx-1 rounded-full border-black py-2 items-center">
-                  <button onClick={() => navigate("/register")}>Register</button>
+                  <button onClick={() => navigate("/login")}>Register</button>
                 </div>
               </>
             )}
@@ -85,7 +85,9 @@ export const Header = () => {
                   className="h-6 w-6 text-gray-700 cursor-pointer"
                   aria-label="Profile"
                 />
-                <span className="mx-0 sm:mx-1 hidden md:flex text-gray-500">Profile</span>
+                <span className="mx-0 sm:mx-1 hidden md:flex text-gray-500">
+                  Profile
+                </span>
               </button>
 
               {isOpen && (
@@ -100,7 +102,7 @@ export const Header = () => {
                   <button
                     onClick={() => navigate("/addToCart")}
                     className="text-blue-500 hover:underline"
-                    aria-label="Add to Cart"
+                    aria-label="Logout"
                   >
                     Add To Cart
                   </button>

@@ -7,13 +7,13 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA5IjjlhhSuS2Lqhom1rJ-RRsWPHHnbTlQ",
-  authDomain: "full-stact-ecommerce.firebaseapp.com",
-  projectId: "full-stact-ecommerce",
-  storageBucket: "full-stact-ecommerce.appspot.com",
-  messagingSenderId: "1028480865062",
-  appId: "1:1028480865062:web:27bcc38597425571aca7e7",
-  measurementId: "G-0ZQVVXRYG5"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);

@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
-
-import { ChevronRight, CreditCard, FileSpreadsheet, FileText, LayoutDashboard, Lock, Package, Settings, ShoppingBag, ShoppingCart, Sliders, User, Users } from 'lucide-react'
-import { useState } from 'react'
+import { ChevronRight, CreditCard, FileSpreadsheet, FileText, LayoutDashboard, Lock, Package, Settings, ShoppingBag, ShoppingCart, Sliders, User, Users } from 'lucide-react';
+import { useState } from 'react';
 
 const MenuItem = ({ icon: Icon, text, isActive, hasSubmenu, isOpen, onClick }) => (
   <li className={`flex items-center p-2 cursor-pointer ${isActive ? 'bg-orange-500 rounded-lg' : 'hover:bg-gray-700 rounded-lg'}`} onClick={onClick}>
@@ -9,15 +8,15 @@ const MenuItem = ({ icon: Icon, text, isActive, hasSubmenu, isOpen, onClick }) =
     <span className="flex-grow">{text}</span>
     {hasSubmenu && <ChevronRight className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-90' : ''}`} />}
   </li>
-)
+);
 
 const DashboardSidebar = () => {
-  const [activeItem, setActiveItem] = useState('Dashboard')
-  const [openSubmenu, setOpenSubmenu] = useState(null)
+  const [activeItem, setActiveItem] = useState('Dashboard');
+  const [openSubmenu, setOpenSubmenu] = useState(null);
 
   const toggleSubmenu = (item) => {
-    setOpenSubmenu(openSubmenu === item ? null : item)
-  }
+    setOpenSubmenu(openSubmenu === item ? null : item);
+  };
 
   const menuItems = [
     { icon: LayoutDashboard, text: 'Dashboard' },
@@ -32,13 +31,13 @@ const DashboardSidebar = () => {
     { icon: User, text: 'Profile' },
     { icon: Users, text: 'Roles', hasSubmenu: true },
     { icon: Lock, text: 'Permissions' },
-  ]
+  ];
 
   return (
-    <div className="flex bg-[#262D34] justify-center w-full h-screen text-gray-100">
-      <div className="w-64 flex-shrink-0 overflow-y-auto">
+    <div className="bg-[#262D34] justify-center p-2 fixed h-screen text-gray-100">
+      <div className=" flex-shrink-0 overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-        <div className="flex items-center">
+          <div className="flex items-center">
             <img src="/Navbar/logo.png" alt="Logo" className="h-10" />
           </div>
           <ChevronRight className="w-5 h-5" />
@@ -55,8 +54,8 @@ const DashboardSidebar = () => {
                 hasSubmenu={item.hasSubmenu}
                 isOpen={openSubmenu === item.text}
                 onClick={() => {
-                  setActiveItem(item.text)
-                  if (item.hasSubmenu) toggleSubmenu(item.text)
+                  setActiveItem(item.text);
+                  if (item.hasSubmenu) toggleSubmenu(item.text);
                 }}
               />
             ))}
@@ -72,8 +71,8 @@ const DashboardSidebar = () => {
                 hasSubmenu={item.hasSubmenu}
                 isOpen={openSubmenu === item.text}
                 onClick={() => {
-                  setActiveItem(item.text)
-                  if (item.hasSubmenu) toggleSubmenu(item.text)
+                  setActiveItem(item.text);
+                  if (item.hasSubmenu) toggleSubmenu(item.text);
                 }}
               />
             ))}
@@ -81,6 +80,7 @@ const DashboardSidebar = () => {
         </nav>
       </div>
     </div>
-  )
-}
-export default DashboardSidebar
+  );
+};
+
+export default DashboardSidebar;

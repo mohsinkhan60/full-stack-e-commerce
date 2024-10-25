@@ -101,7 +101,7 @@ const PerformanceChart = () => {
 }
 const DashboardMainHead = () => {
   return (
-    <div className="min-h-screen bg-gray-100 p-4 container mx-auto items-center justify-center max-w-full lg:px-4 xl:px-5">
+    <div className="min-h-screen p-4 container mx-auto items-center justify-center max-w-full lg:px-4 xl:px-5">
       <div className="max-w-7xl flex flex-col lg:flex-row mx-auto">
         <div className="mx-2">
           <div

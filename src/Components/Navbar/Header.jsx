@@ -121,7 +121,7 @@ export const Header = () => {
             className="hidden md:flex items-center cursor-pointer mx-0 sm:mx-3"
           >
             <span
-              className={`absolute top-8 bg-pritext-primary ${
+              className={`absolute top-9 right-44 bg-pritext-primary ${
                 favourites?.length > 0 ? " bg-red-500 text-white" : <></>
               } text-xs w-4 h-4 rounded-full flex items-center justify-center`}
             >
@@ -139,7 +139,7 @@ export const Header = () => {
             className="hidden cursor-pointer md:flex items-center mx-0 sm:mx-3"
           >
             <span
-              className={`absolute top-8 bg-pritext-primary ${
+              className={`absolute top-9 right-20 bg-pritext-primary ${
                 products?.length > 0 ? " bg-red-500 text-white" : <></>
               } text-xs w-4 h-4 rounded-full flex items-center justify-center`}
             >

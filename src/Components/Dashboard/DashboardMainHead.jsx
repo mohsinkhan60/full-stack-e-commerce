@@ -2,25 +2,34 @@
 
 import { ShoppingBag, Award, Briefcase, DollarSign } from "lucide-react";
 import { useState } from "react";
-import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, Line, ComposedChart, ResponsiveContainer } from 'recharts'
+import {
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Line,
+  ComposedChart,
+  ResponsiveContainer,
+} from "recharts";
 
 const data = [
-  { month: 'Jan', pageViews: 7, clicks: 8 },
-  { month: 'Feb', pageViews: 22, clicks: 5 },
-  { month: 'Mar', pageViews: 30, clicks: 12 },
-  { month: 'Apr', pageViews: 28, clicks: 20 },
-  { month: 'May', pageViews: 48, clicks: 15 },
-  { month: 'Jun', pageViews: 60, clicks: 8 },
-  { month: 'Jul', pageViews: 41, clicks: 7 },
-  { month: 'Aug', pageViews: 24, clicks: 10 },
-  { month: 'Sep', pageViews: 78, clicks: 28 },
-  { month: 'Oct', pageViews: 52, clicks: 28 },
-  { month: 'Nov', pageViews: 62, clicks: 15 },
-  { month: 'Dec', pageViews: 66, clicks: 33 },
-]
+  { month: "Jan", pageViews: 7, clicks: 8 },
+  { month: "Feb", pageViews: 22, clicks: 5 },
+  { month: "Mar", pageViews: 30, clicks: 12 },
+  { month: "Apr", pageViews: 28, clicks: 20 },
+  { month: "May", pageViews: 48, clicks: 15 },
+  { month: "Jun", pageViews: 60, clicks: 8 },
+  { month: "Jul", pageViews: 41, clicks: 7 },
+  { month: "Aug", pageViews: 24, clicks: 10 },
+  { month: "Sep", pageViews: 78, clicks: 28 },
+  { month: "Oct", pageViews: 52, clicks: 28 },
+  { month: "Nov", pageViews: 62, clicks: 15 },
+  { month: "Dec", pageViews: 66, clicks: 33 },
+];
 
 const MetricCard = ({ icon: Icon, title, value, change, period }) => (
-  <div className="bg-white relative h-40 p-4 rounded-xl shadow">
+  <div className="bg-[#ece8e6] relative h-40 p-4 rounded-xl shadow">
     <div className="flex items-center justify-between mb-2">
       <div className="bg-[#FFE2D5] p-2 rounded">
         <Icon className="text-orange-500" size={24} />
@@ -46,15 +55,15 @@ const CustomTooltip = ({ active, payload, label }) => {
         <p className="text-orange-500">Page Views: {payload[0].value}k</p>
         <p className="text-green-500">Clicks: {payload[1].value}k</p>
       </div>
-    )
+    );
   }
-  return null
-}
+  return null;
+};
 
 const PerformanceChart = () => {
-  const [activeFilter, setActiveFilter] = useState('1Y')
+  const [activeFilter, setActiveFilter] = useState("1Y");
 
-  const filters = ['ALL', '1M', '6M', '1Y']
+  const filters = ["ALL", "6M", "1Y"];
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
@@ -66,8 +75,8 @@ const PerformanceChart = () => {
               key={filter}
               className={`px-3 py-1 text-sm rounded ${
                 activeFilter === filter
-                  ? 'bg-blue-100 text-blue-600'
-                  : 'text-gray-600 hover:bg-gray-100'
+                  ? "bg-blue-100 text-blue-600"
+                  : "text-gray-600 hover:bg-gray-100"
               }`}
               onClick={() => setActiveFilter(filter)}
             >
@@ -77,13 +86,22 @@ const PerformanceChart = () => {
         </div>
       </div>
       <ResponsiveContainer width="100%" height={400}>
-        <ComposedChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+        <ComposedChart
+          data={data}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        >
           <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis dataKey="month" tickLine={false} />
           <YAxis tickCount={5} tickLine={false} axisLine={false} />
           <Tooltip content={<CustomTooltip />} />
           <Bar dataKey="pageViews" fill="#FF7E47" radius={[4, 4, 0, 0]} />
-          <Line type="monotone" dataKey="clicks" stroke="#4CAF50" strokeWidth={2} dot={false} />
+          <Line
+            type="monotone"
+            dataKey="clicks"
+            stroke="#4CAF50"
+            strokeWidth={2}
+            dot={false}
+          />
         </ComposedChart>
       </ResponsiveContainer>
       <div className="flex justify-center mt-4 space-x-8">
@@ -97,13 +115,13 @@ const PerformanceChart = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 const DashboardMainHead = () => {
   return (
-    <div className="min-h-screen p-4 container mx-auto items-center justify-center max-w-full lg:px-4 xl:px-5">
-      <div className="max-w-7xl flex flex-col lg:flex-row mx-auto">
-        <div className="mx-2">
+    <div className="my-10 p-4 container mx-auto items-center justify-center max-w-full lg:px-4 xl:px-5">
+      <div className="max-w-7xl flex flex-col lg:flex-row mx-auto gap-3">
+        <div className="mx-2 flex-[.7] bg-white p-6 rounded-lg shadow-md">
           <div
             className="bg-[#FFE2D5] text-[#662B57] p-4 mb-4 rounded"
             role="alert"

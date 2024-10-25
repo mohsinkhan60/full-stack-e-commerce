@@ -16,7 +16,7 @@ const getExitRateColor = (rate) => {
 
 const DashboardMainGraph = () => {
   return (
-    <div className="container mx-auto px-4 lg:px-5 ">
+    <div className="container mx-auto px-4 lg:px-6">
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="flex-1 flex-col gap-2 flex lg:flex-row items-center justify-between mb-4">
           <div className="flex items-center justify-center">
@@ -120,7 +120,7 @@ const DashboardMainGraph = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center w-full lg:w-96 lg:mb-5 bg-white rounded-lg shadow-md">
+        <div className="flex justify-center w-80 p-3 lg:p-0 lg:w-96 lg:mb-5 bg-white rounded-lg shadow-md">
           <TEChart
             type="doughnut"
             data={{

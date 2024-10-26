@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const MenuItem = ({
   icon: Icon,
@@ -49,81 +50,162 @@ const DashboardSidebar = ({ isOpen, toggleSidebar }) => {
   const toggleSubmenu = (item) => {
     setOpenSubmenu(openSubmenu === item ? null : item);
   };
-
-  const menuItems = [
-    { icon: LayoutDashboard, text: "Dashboard" },
-    { icon: ShoppingBag, text: "Products", hasSubmenu: true },
-    { icon: FileText, text: "Category", hasSubmenu: true },
-    { icon: Package, text: "Inventory", hasSubmenu: true },
-    { icon: ShoppingCart, text: "Orders", hasSubmenu: true },
-    { icon: CreditCard, text: "Purchases", hasSubmenu: true },
-    { icon: Sliders, text: "Attributes", hasSubmenu: true },
-    { icon: FileSpreadsheet, text: "Invoices", hasSubmenu: true },
-    { icon: Settings, text: "Settings" },
-    { icon: User, text: "Profile" },
-    { icon: Users, text: "Roles", hasSubmenu: true },
-    { icon: Lock, text: "Permissions" },
-  ];
+  const navigate = useNavigate();
 
   return (
     <div
       className={`bg-[#262D34] justify-center p-2 fixed h-screen text-gray-100 transform lg:translate-x-0 -translate-x-full transition-transform ${
-        isOpen ? "translate-x-0 transform transition-transform" : "-translate-x-full transform transition-transform"
+        isOpen
+          ? "translate-x-0 transform transition-transform"
+          : "-translate-x-full transform transition-transform"
       }`}
     >
       <div className="flex-shrink-0 overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <div className="flex items-center">
-            <img src="/Navbar/logo.png" alt="Logo" className="h-10" />
-          </div>
-          {toggleSidebar === true ? (
-            <button onClick={toggleSidebar}>
-              <ChevronRight className="w-5 h-5 text-white lg:text-[#262D34]" />
-            </button>
-          ) : (
-            <button onClick={toggleSidebar}>
+          <img src="/Navbar/logo.png" alt="Logo" className="h-10" />
+          <button onClick={toggleSidebar}>
+            {isOpen ? (
               <IoIosArrowBack className="w-5 h-5 text-white lg:text-[#262D34]" />
-            </button>
-          )}
+            ) : (
+              <ChevronRight className="w-5 h-5 text-white lg:text-[#262D34]" />
+            )}
+          </button>
         </div>
         <nav>
           <div className="px-4 py-2 text-xs uppercase text-gray-400">
             General
           </div>
           <ul>
-            {menuItems.slice(0, 9).map((item) => (
-              <MenuItem
-                key={item.text}
-                icon={item.icon}
-                text={item.text}
-                isActive={activeItem === item.text}
-                hasSubmenu={item.hasSubmenu}
-                isOpen={openSubmenu === item.text}
-                onClick={() => {
-                  setActiveItem(item.text);
-                  if (item.hasSubmenu) toggleSubmenu(item.text);
-                }}
-              />
-            ))}
+            <MenuItem
+              icon={LayoutDashboard}
+              text="Dashboard"
+              isActive={activeItem === "Dashboard"}
+              hasSubmenu={false}
+              onClick={() => {
+                navigate("/dashboard");
+                setActiveItem("Dashboard");
+              }}
+            />
+            <MenuItem
+              icon={ShoppingBag}
+              text="Products"
+              isActive={activeItem === "Products"}
+              hasSubmenu={true}
+              isOpen={openSubmenu === "Products"}
+              onClick={() => {
+                navigate("/dashboard/products");
+                setActiveItem("Products");
+              }}
+            />
+            <MenuItem
+              icon={FileText}
+              text="Category"
+              isActive={activeItem === "Category"}
+              hasSubmenu={true}
+              isOpen={openSubmenu === "Category"}
+              onClick={() => {
+                setActiveItem("Category");
+                toggleSubmenu("Category");
+              }}
+            />
+            <MenuItem
+              icon={Package}
+              text="Inventory"
+              isActive={activeItem === "Inventory"}
+              hasSubmenu={true}
+              isOpen={openSubmenu === "Inventory"}
+              onClick={() => {
+                setActiveItem("Inventory");
+                toggleSubmenu("Inventory");
+              }}
+            />
+            <MenuItem
+              icon={ShoppingCart}
+              text="Orders"
+              isActive={activeItem === "Orders"}
+              hasSubmenu={true}
+              isOpen={openSubmenu === "Orders"}
+              onClick={() => {
+                setActiveItem("Orders");
+                toggleSubmenu("Orders");
+              }}
+            />
+            <MenuItem
+              icon={CreditCard}
+              text="Purchases"
+              isActive={activeItem === "Purchases"}
+              hasSubmenu={true}
+              isOpen={openSubmenu === "Purchases"}
+              onClick={() => {
+                setActiveItem("Purchases");
+                toggleSubmenu("Purchases");
+              }}
+            />
+            <MenuItem
+              icon={Sliders}
+              text="Attributes"
+              isActive={activeItem === "Attributes"}
+              hasSubmenu={true}
+              isOpen={openSubmenu === "Attributes"}
+              onClick={() => {
+                setActiveItem("Attributes");
+                toggleSubmenu("Attributes");
+              }}
+            />
+            <MenuItem
+              icon={FileSpreadsheet}
+              text="Invoices"
+              isActive={activeItem === "Invoices"}
+              hasSubmenu={true}
+              isOpen={openSubmenu === "Invoices"}
+              onClick={() => {
+                setActiveItem("Invoices");
+                toggleSubmenu("Invoices");
+              }}
+            />
+            <MenuItem
+              icon={Settings}
+              text="Settings"
+              isActive={activeItem === "Settings"}
+              hasSubmenu={false}
+              onClick={() => {
+                setActiveItem("Settings");
+              }}
+            />
           </ul>
           <div className="px-4 py-2 text-xs uppercase text-gray-400 mt-4">
             Users
           </div>
           <ul>
-            {menuItems.slice(9).map((item) => (
-              <MenuItem
-                key={item.text}
-                icon={item.icon}
-                text={item.text}
-                isActive={activeItem === item.text}
-                hasSubmenu={item.hasSubmenu}
-                isOpen={openSubmenu === item.text}
-                onClick={() => {
-                  setActiveItem(item.text);
-                  if (item.hasSubmenu) toggleSubmenu(item.text);
-                }}
-              />
-            ))}
+            <MenuItem
+              icon={User}
+              text="Profile"
+              isActive={activeItem === "Profile"}
+              hasSubmenu={false}
+              onClick={() => {
+                setActiveItem("Profile");
+              }}
+            />
+            <MenuItem
+              icon={Users}
+              text="Roles"
+              isActive={activeItem === "Roles"}
+              hasSubmenu={true}
+              isOpen={openSubmenu === "Roles"}
+              onClick={() => {
+                setActiveItem("Roles");
+                toggleSubmenu("Roles");
+              }}
+            />
+            <MenuItem
+              icon={Lock}
+              text="Permissions"
+              isActive={activeItem === "Permissions"}
+              hasSubmenu={false}
+              onClick={() => {
+                setActiveItem("Permissions");
+              }}
+            />
           </ul>
         </nav>
       </div>

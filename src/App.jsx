@@ -11,7 +11,8 @@ import Favourite from "./pages/Favourite";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Shop from "./pages/Shop";
-import Dashboard from "./Components/Dashboard/Dashboard";
+import Dashboard from "./Components/Dashboard/Dashboard"
+import Products from "./Components/Dashboard/Products";
 
 export const App = () => {
   return (
@@ -37,6 +38,7 @@ export const App = () => {
         {/* Sidebar Routes */}
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path="products" element={<Products />} />
         </Route>
       </Routes>
     </BrowserRouter>

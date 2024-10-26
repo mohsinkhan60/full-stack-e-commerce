@@ -29,7 +29,7 @@ const data = [
 ];
 
 const MetricCard = ({ icon: Icon, title, value, change, period }) => (
-  <div className="bg-[#ece8e6] relative h-40 p-4 rounded-xl shadow">
+  <div className="relative h-40 p-4 rounded-xl shadow">
     <div className="flex items-center justify-between mb-2">
       <div className="bg-[#FFE2D5] p-2 rounded">
         <Icon className="text-orange-500" size={24} />
@@ -37,7 +37,7 @@ const MetricCard = ({ icon: Icon, title, value, change, period }) => (
       <span className="text-sm text-gray-500">{title}</span>
     </div>
     <div className="text-2xl font-bold mb-2">{value}</div>
-    <div className="flex absolute bottom-0 w-full left-0 items-center rounded-b-xl justify-between bg-[#e3e6eb] p-3">
+    <div className="flex absolute bottom-0 w-full left-0 items-center rounded-b-xl justify-between bg-[#F6F8FB] p-3">
       <div
         className={`text-sm ${change > 0 ? "text-green-500" : "text-red-500"}`}
       >
@@ -119,7 +119,7 @@ const PerformanceChart = () => {
 };
 const DashboardMainHead = () => {
   return (
-    <div className="my-10 p-4 container mx-auto items-center justify-center max-w-full lg:px-4 xl:px-5">
+    <div className="mb-10 container mx-auto items-center justify-center max-w-full lg:px-4 xl:px-5">
       <div className="max-w-7xl flex flex-col lg:flex-row mx-auto gap-3">
         <div className="mx-2 flex-[.7] bg-white p-6 rounded-lg shadow-md">
           <div

@@ -2,7 +2,7 @@
 
 import { addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytes } from "firebase/storage";
-import { ChevronDownIcon, UploadCloudIcon } from "lucide-react";
+import { UploadCloudIcon } from "lucide-react";
 import { useState } from "react";
 import { FaPlus, FaTags } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -15,13 +15,16 @@ const AddToCart = () => {
     name: "",
     price: "",
     description: "",
-    date: Date.now(),
+    category: "",
+    gender: "",
   });
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColors, setSelectedColors] = useState([]);
 
   const sizes = ["XS", "S", "M", "XL", "XXL", "3XL"];
   const colors = ["navy", "yellow", "orange", "green", "red", "teal", "blue"];
+  const categories = ["Clothing", "Accessories", "Footwear"];
+  const genders = ["Men", "Women", "Unisex"];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,14 +40,16 @@ const AddToCart = () => {
     }
   };
 
-  const handleCreateNewListing = async (image, name, price, description) => {
+  const handleCreateNewListing = async (image, name, price, description, category, gender) => {
     const imageRef = ref(storage, `uploads/images/${Date.now()}-${image.name}`);
-    const uploadResult = await uploadBytes(imageRef, image);
+    await uploadBytes(imageRef, image);
     return await addDoc(collection(db, "Products"), {
-      image: uploadResult.ref.fullPath,
+      image: imageRef.fullPath,
       name,
       price,
       description,
+      category,
+      gender,
       userID: auth.currentUser.uid,
       email: auth.currentUser.email,
     });
@@ -52,16 +57,28 @@ const AddToCart = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { image, name, price, description } = formData;
-    await handleCreateNewListing(image, name, price, description);
-    setFormData({
-      image: null,
-      name: "",
-      price: "",
-      description: "",
-      date: Date.now(),
-    });
-    navigate("/shop");
+    const { image, name, price, description, category, gender } = formData;
+
+    if (price <= 0) {
+      alert("Price must be a positive number");
+      return;
+    }
+
+    try {
+      await handleCreateNewListing(image, name, price, description, category, gender);
+      setFormData({
+        image: null,
+        name: "",
+        price: "",
+        description: "",
+        category: "",
+        gender: "",
+      });
+      navigate("/shop");
+    } catch (error) {
+      console.error("Error creating listing:", error);
+      alert("Failed to create listing. Please try again.");
+    }
   };
 
   const handleSizeClick = (size) => {
@@ -80,13 +97,13 @@ const AddToCart = () => {
     <div className="container mx-auto p-4 pt-20 max-w-4xl">
       <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="bg-white p-5 rounded-xl">
-          <h1 className=" text-gray-700 text-xl font-semibold mb-6">Add Product</h1>
+          <h1 className="text-gray-700 text-xl font-semibold mb-6">Add Product</h1>
           <div className="flex items-center justify-center bg-white mt-4 relative w-80 max-w-md h-64 mx-auto">
             <input
               type="file"
               name="image"
               onChange={handleImageChange}
-              className="absolute  inset-0 opacity-0 z-10"
+              className="absolute inset-0 opacity-0 z-10"
               accept="image/jpeg, image/png"
               required
             />
@@ -111,13 +128,10 @@ const AddToCart = () => {
         </div>
 
         <div className="bg-white p-4 rounded-2xl">
-          <h2 className="text-xl font-semibold mb-6 text-gray-700 ">Product Information</h2>
+          <h2 className="text-xl font-semibold mb-6 text-gray-700">Product Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 mb-1"
-              >
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                 Name
               </label>
               <input
@@ -131,82 +145,65 @@ const AddToCart = () => {
               />
             </div>
 
-            <div className="flex space-x-4">
-              <div className="flex-1">
-                <label
-                  htmlFor="price"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  <FaTags className="inline mr-2" />
-                  Price
-                </label>
-                <input
-                  type="number"
-                  name="price"
-                  value={formData.price}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Enter price"
-                  required
-                />
-              </div>
+            <div className="flex-1">
+              <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
+                <FaTags className="inline mr-2" />
+                Price
+              </label>
+              <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Enter price"
+                required
+              />
             </div>
           </div>
+
           <div className="space-y-8 mt-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label
-                  htmlFor="productCategories"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
                   Product Categories
                 </label>
-                <div className="relative">
-                  <select
-                    id="productCategories"
-                    className="w-full p-2 border border-gray-300 rounded-md appearance-none"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Choose a category
-                    </option>
-                    <option>Category 1</option>
-                    <option>Category 2</option>
-                    <option>Category 3</option>
-                  </select>
-                  <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                </div>
-              </div>
-              <div>
-                <label
-                  htmlFor="productCategories"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  required
                 >
+                  <option value="">Select Category</option>
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">
                   Gender
                 </label>
-                <div className="relative">
-                  <select
-                    id="productCategories"
-                    className="w-full p-2 border border-gray-300 rounded-md appearance-none"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      Select the Gender
-                    </option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>other</option>
-                  </select>
-                  <ChevronDownIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                </div>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  required
+                >
+                  <option value="">Select Gender</option>
+                  {genders.map((gen) => (
+                    <option key={gen} value={gen}>{gen}</option>
+                  ))}
+                </select>
               </div>
             </div>
 
             <div className="flex flex-col gap-3 lg:justify-evenly lg:flex-row">
-              <div className="">
-                <label className="block text-sm font-medium text-gray-700 mb-5">
-                  Size :
-                </label>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-5">Size :</label>
                 <div className="flex flex-wrap gap-2">
                   {sizes.map((size) => (
                     <button
@@ -224,9 +221,7 @@ const AddToCart = () => {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-5">
-                  Colors :
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-5">Colors :</label>
                 <div className="flex flex-wrap gap-2">
                   {colors.map((color) => (
                     <button
@@ -245,26 +240,21 @@ const AddToCart = () => {
               </div>
             </div>
 
-            <div className="flex space-x-4">
-              <div className="flex-1">
-                <label
-                  htmlFor="description"
-                  className="block text-sm font-medium text-gray-700 mb-1"
-                >
-                  <FaTags className="inline mr-2" />
-                  Description
-                </label>
-                <textarea
-                  type="text"
-                  name="description"
-                  rows="6"
-                  value={formData.description}
-                  onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  placeholder="Enter description"
-                  required
-                ></textarea>
-              </div>
+            <div>
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                <FaTags className="inline mr-2" />
+                Description
+              </label>
+              <textarea
+                type="text"
+                name="description"
+                rows="6"
+                value={formData.description}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                placeholder="Enter description"
+                required
+              ></textarea>
             </div>
 
             <div>
@@ -279,10 +269,11 @@ const AddToCart = () => {
           </div>
         </div>
         <div className="bg-[#EEF2F7] rounded-xl flex justify-end gap-4 p-6">
-          <button className="rounded-xl border hover:bg-gray-600 hover:text-white text-xs hover:border-gray-600 border-black px-4 py-1">
-            Create Product
-          </button>
-          <button className="rounded-xl border bg-[#FF6C2F] text-white hover:bg-[#F0652C] hover:text-white text-sm hover:border-[#FF6C2F] border-[#FF6C2F] px-6 py-1">
+          <button
+            type="button"
+            onClick={() => navigate("/shop")}
+            className="rounded-xl border bg-[#FF6C2F] text-white hover:bg-[#F0652C] hover:text-white text-sm hover:border-[#FF6C2F] border-[#FF6C2F] px-6 py-1"
+          >
             Cancel
           </button>
         </div>

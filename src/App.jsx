@@ -13,6 +13,7 @@ import Shop from "./pages/Shop";
 import Dashboard from "./Components/Dashboard/Dashboard"
 import Products from "./Components/Dashboard/Products";
 import AddToCart from "./pages/AddToCart";
+import AllProducts from "./pages/AllProducts";
 
 export const App = () => {
   return (
@@ -27,6 +28,7 @@ export const App = () => {
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<Cart />} />
           <Route path="favourite" element={<Favourite />} />
+          <Route path="AllProducts" element={<AllProducts />} />
         </Route>
 
         {/* Auth Routes */}

@@ -90,6 +90,13 @@ export const HeaderNavbar = () => {
                         Dashboard
                       </button>
                       <button
+                        onClick={() => navigate("/AllProducts")}
+                        className="text-blue-500 hover:underline"
+                        aria-label="Logout"
+                      >
+                        All Products
+                      </button>
+                      <button
                         onClick={logout}
                         className="text-blue-500 hover:underline"
                         aria-label="Logout"

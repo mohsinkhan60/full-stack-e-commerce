@@ -1,12 +1,29 @@
 import { ChevronDown, Menu } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "firebase/auth";
+import { removeUser } from "../store/slices/Auth";
+import { auth } from "../../../firebasse";
+import { CgProfile } from "react-icons/cg";
 
 export const HeaderNavbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
+
+  const dispatch = useDispatch();
+
+  const logout = async (e) => {
+    e.preventDefault();
+    try {
+      await signOut(auth);
+      dispatch(removeUser());
+      navigate("/login");
+    } catch (error) {
+      console.log("Error during sign out...");
+    }
+  };
   return (
     <nav className="bg-white shadow-md">
       <div className="container xl:px-5 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,6 +64,43 @@ export const HeaderNavbar = () => {
 
           <div className="flex items-center">
             <div className="hidden md:flex items-center space-x-4">
+              {user && (
+                <div className="relative">
+                  <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="flex items-center mx-0 sm:mx-3"
+                    aria-label="Profile menu"
+                  >
+                    <CgProfile
+                      className="h-6 w-6 text-gray-700 cursor-pointer"
+                      aria-label="Profile"
+                    />
+                    <span className="mx-0 sm:mx-1 hidden md:flex text-gray-500">
+                      Profile
+                    </span>
+                  </button>
+
+                  {isOpen && (
+                    <div className="absolute flex-col flex gap-2 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4 z-50">
+                      <button
+                        onClick={() => navigate("/dashboard")}
+                        className="text-blue-500 hover:underline"
+                        aria-label="Logout"
+                      >
+                        Dashboard
+                      </button>
+                      <button
+                        onClick={logout}
+                        className="text-blue-500 hover:underline"
+                        aria-label="Logout"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {!user && (
                 <>
                   <button

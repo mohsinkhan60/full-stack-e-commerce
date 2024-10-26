@@ -62,7 +62,7 @@ const DashboardSidebar = ({ isOpen, toggleSidebar }) => {
     >
       <div className="flex-shrink-0 overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <img src="/Navbar/logo.png" alt="Logo" className="h-10" />
+          <img onClick={() => navigate("/")} src="/Navbar/logo.png" alt="Logo" className="h-10 cursor-pointer" />
           <button onClick={toggleSidebar}>
             {isOpen ? (
               <IoIosArrowBack className="w-5 h-5 text-white lg:text-[#262D34]" />

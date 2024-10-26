@@ -656,3 +656,78 @@ export const DashboardMainOrders = [
     status: "Processing",
   },
 ];
+
+export const Dashboardproducts = [
+  {
+    id: 1,
+    name: 'Black T-shirt',
+    size: 'S , M , L , XL',
+    price: 80.00,
+    stockLeft: 486,
+    stockSold: 155,
+    category: 'Fashion',
+    rating: 4.5,
+    reviews: 55,
+    image: '/About/1.webp'
+  },
+  {
+    id: 2,
+    name: 'Olive Green Leather Bag',
+    size: 'S , M',
+    price: 136.00,
+    stockLeft: 784,
+    stockSold: 674,
+    category: 'Hand Bag',
+    rating: 4.1,
+    reviews: 143,
+    image: '/About/2.webp'
+  },
+  {
+    id: 3,
+    name: 'Women Golden Dress',
+    size: 'S , M',
+    price: 219.00,
+    stockLeft: 769,
+    stockSold: 180,
+    category: 'Fashion',
+    rating: 4.4,
+    reviews: 174,
+    image: '/About/3.webp'
+  },
+  {
+    id: 4,
+    name: 'Gray Cap For Men',
+    size: 'S , M , L',
+    price: 76.00,
+    stockLeft: 571,
+    stockSold: 87,
+    category: 'Cap',
+    rating: 4.2,
+    reviews: 23,
+    image: '/About/2.webp'
+  },
+  {
+    id: 5,
+    name: 'Dark Green Cargo Pent',
+    size: 'S , M , L , XL',
+    price: 110.00,
+    stockLeft: 241,
+    stockSold: 342,
+    category: 'Fashion',
+    rating: 4.4,
+    reviews: 109,
+    image: '/About/1.webp'
+  },
+  {
+    id: 6,
+    name: 'Orange Multi Color Headphone',
+    size: 'S , M',
+    price: 231.00,
+    stockLeft: 821,
+    stockSold: 231,
+    category: 'Electronics',
+    rating: 4.2,
+    reviews: 200,
+    image: '/About/3.webp'
+  },
+]

@@ -3,33 +3,18 @@ import { useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoSearchSharp } from "react-icons/io5";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { CgProfile } from "react-icons/cg";
-import { auth } from "../../../firebasse";
-import { signOut } from "firebase/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { removeUser } from "../store/slices/Auth";
 
 export const Header = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState("All Categories");
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
   const user = useSelector((state) => state.auth.user);
   const products = useSelector((state) => state.cart.products);
   const favourites = useSelector((state) => state.cart.favorites);
-  const dispatch = useDispatch();
 
-  const logout = async (e) => {
-    e.preventDefault();
-    try {
-      await signOut(auth);
-      dispatch(removeUser());
-      navigate("/login");
-    } catch (error) {
-      console.log("Error during sign out...");
-    }
-  };
 
   return (
     <header className="bg-[#F3FAF2] flex items-center justify-center shadow-sm sticky top-0 left-0 z-[50000] w-full h-32">
@@ -78,43 +63,6 @@ export const Header = () => {
               <IoSearchSharp className="absolute right-3 h-6 w-6 text-gray-500 cursor-pointer" />
             </div>
           </div>
-
-          {user && (
-            <div className="relative">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center mx-0 sm:mx-3"
-                aria-label="Profile menu"
-              >
-                <CgProfile
-                  className="h-6 w-6 text-gray-700 cursor-pointer"
-                  aria-label="Profile"
-                />
-                <span className="mx-0 sm:mx-1 hidden md:flex text-gray-500">
-                  Profile
-                </span>
-              </button>
-
-              {isOpen && (
-                <div className="absolute flex-col flex gap-2 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4 z-50">
-                  <button
-                    onClick={logout}
-                    className="text-blue-500 hover:underline"
-                    aria-label="Logout"
-                  >
-                    Logout
-                  </button>
-                  <button
-                    onClick={() => navigate("/addToCart")}
-                    className="text-blue-500 hover:underline"
-                    aria-label="Logout"
-                  >
-                    Add To Cart
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
 
           <div
             onClick={() => navigate("/favourite")}

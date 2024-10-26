@@ -4,7 +4,6 @@ import AuthLayout from "./Layout/AuthLayout";
 import DashboardLayout from "./Layout/DashboardLayout";
 import RootLayout from "./Layout/RootLayout";
 import About from "./pages/About";
-import AddToCart from "./pages/AddToCart";
 import Cart from "./pages/Cart";
 import Contact from "./pages/Contact";
 import Favourite from "./pages/Favourite";
@@ -13,6 +12,7 @@ import Login from "./pages/Login";
 import Shop from "./pages/Shop";
 import Dashboard from "./Components/Dashboard/Dashboard"
 import Products from "./Components/Dashboard/Products";
+import AddToCart from "./pages/AddToCart";
 
 export const App = () => {
   return (
@@ -27,7 +27,6 @@ export const App = () => {
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<Cart />} />
           <Route path="favourite" element={<Favourite />} />
-          <Route path="addToCart" element={<AddToCart />} />
         </Route>
 
         {/* Auth Routes */}
@@ -39,6 +38,7 @@ export const App = () => {
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />
+          <Route path="addToCart" element={<AddToCart />} />
         </Route>
       </Routes>
     </BrowserRouter>

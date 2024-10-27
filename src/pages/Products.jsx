@@ -1,9 +1,9 @@
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
-import { ChevronDown, Pencil, Trash2 } from "lucide-react";
+import { ChevronDown, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { CiEdit } from "react-icons/ci";
+import { NavLink, useNavigate } from "react-router-dom";
 import { db, storage } from "../../firebasse";
 
 const getAllProducts = async () => {
@@ -36,18 +36,14 @@ const Products = () => {
   };
 
   const handleDelete = async (productId) => {
-    const loading = toast.loading("Deleting product...");
     setIsDisabled(true);
 
     try {
       await deleteUserData(productId);
       setProducts((prev) => prev.filter((product) => product.id !== productId));
-      toast.success("User data deleted successfully!");
     } catch (error) {
       console.error("Error deleting user data:", error);
-      toast.error("Error deleting user data. Please try again.");
     } finally {
-      toast.dismiss(loading);
       setIsDisabled(false);
     }
   };
@@ -169,18 +165,11 @@ const Products = () => {
                   <td className="px-6 py-4">{product.category}</td>
                   <td className="px-6 py-4">
                     <div className="flex space-x-2">
-                      {/* <Link to={`/edit-product/${product.id}`}> */}
-                          <button className="text-blue-600 hover:text-blue-900">
-                            <Pencil className="h-5 w-5" />
-                          </button>
-                          {/* <button
-                            className="flex text-white px-2 py-1 rounded-lg bg-green-500 hover:bg-green-600 items-center gap-2"
-                            disabled={isDisabled}
-                          >
-                            <Pencil className="h-4 w-4" />
-                            Edit
-                          </button> */}
-                      {/* </Link> */}
+                    <NavLink to={`/dashboard/edit-product/${product.id}`}>
+                        <button className="flex text-green-800 h-4 w-6">
+                          <CiEdit className="h-5 w-5" />
+                        </button>
+                      </NavLink>
                       <button
                         onClick={() => handleDelete(product.id)}
                         disabled={isDisabled}

@@ -81,24 +81,17 @@ export const HeaderNavbar = () => {
                   </button>
 
                   {isOpen && (
-                    <div className="absolute flex-col flex gap-2 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4 z-50">
+                    <div className="absolute flex-col border flex gap-2 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4 z-50">
                       <button
                         onClick={() => navigate("/dashboard")}
-                        className="text-blue-500 hover:underline"
+                        className="bg-gray-800 hover:bg-gray-700 px-2 py-1 rounded-xl text-white"
                         aria-label="Logout"
                       >
                         Dashboard
                       </button>
                       <button
-                        onClick={() => navigate("/AllProducts")}
-                        className="text-blue-500 hover:underline"
-                        aria-label="Logout"
-                      >
-                        All Products
-                      </button>
-                      <button
                         onClick={logout}
-                        className="text-blue-500 hover:underline"
+                        className=" bg-gray-800 hover:bg-gray-700 px-2 py-1 rounded-xl text-white"
                         aria-label="Logout"
                       >
                         Logout

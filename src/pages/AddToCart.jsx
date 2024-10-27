@@ -268,15 +268,6 @@ const AddToCart = () => {
             </div>
           </div>
         </div>
-        <div className="bg-[#EEF2F7] rounded-xl flex justify-end gap-4 p-6">
-          <button
-            type="button"
-            onClick={() => navigate("/shop")}
-            className="rounded-xl border bg-[#FF6C2F] text-white hover:bg-[#F0652C] hover:text-white text-sm hover:border-[#FF6C2F] border-[#FF6C2F] px-6 py-1"
-          >
-            Cancel
-          </button>
-        </div>
       </form>
     </div>
   );

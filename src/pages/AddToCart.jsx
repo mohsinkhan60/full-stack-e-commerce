@@ -1,14 +1,16 @@
 "use client";
 
-import { addDoc, collection } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
+import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UploadCloudIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaPlus, FaTags } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { auth, db, storage } from "../../firebasse";
 
 const AddToCart = () => {
+  const {id} = useParams()
+  console.log(id)
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     image: null,
@@ -92,24 +94,92 @@ const AddToCart = () => {
         : [...prevColors, color]
     );
   };
+  
+const updateUserData = async (uid) => {
+  const docRef = doc(db, "Products", uid);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    return data;
+  } else {
+    console.log("No such document!");
+  }
+};
+
+
+const updateProductPost = async (id, updatedData) => {
+  try {
+    const imageRef = ref(
+      storage,
+      `uploads/images/${Date.now()}-${updatedData?.image.name}`
+    );
+    const uploadResults = await uploadBytes(imageRef, updatedData?.image);
+    const ProductRef = doc(db, "Products", id);
+    await updateDoc(ProductRef, {
+      ...updatedData,
+      image: uploadResults.ref.fullPath,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+const getImageUrl = (path) => {
+  return getDownloadURL(ref(storage, path));
+};
+
+  
+  useEffect(() => {
+    const getProductDetails = async () => {
+      const response = await updateUserData(id);
+
+      const url = await getImageUrl(response?.image || response?.imageURL).then(
+        (url) => url
+      );
+
+      console.log(url);
+
+      setFormData({
+        ...formData,
+        image: url || response?.image || response?.imageURL || "",
+        name: response?.name || "",
+        price: response?.price || "",
+        description: response?.description || "",
+        date: Date.now(),
+      });
+    };
+    getProductDetails();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, setFormData]);
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    await updateProductPost(id, formData);
+    navigate("/shop");
+  };
 
   return (
     <div className="container mx-auto p-4 pt-20 max-w-4xl">
-      <form className="space-y-6" onSubmit={handleSubmit}>
+      <form className="space-y-6">
         <div className="bg-white p-5 rounded-xl">
-          <h1 className="text-gray-700 text-xl font-semibold mb-6">Add Product</h1>
+          <h1 className="text-gray-700 text-xl font-semibold mb-6">{id ? "Edit" : "Add"} Product</h1>
           <div className="flex items-center justify-center bg-white mt-4 relative w-80 max-w-md h-64 mx-auto">
             <input
               type="file"
               name="image"
               onChange={handleImageChange}
-              className="absolute inset-0 opacity-0 z-10"
+              className="absolute inset-0 opacity-0 z-10 "
               accept="image/jpeg, image/png"
               required
             />
             {formData.image ? (
               <img
-                src={URL.createObjectURL(formData.image)}
+              src={
+                typeof formData?.image === "object"
+                  ? URL.createObjectURL(formData?.image)
+                  : formData?.image
+              }
                 alt="Uploaded Preview"
                 className="w-80 max-w-md h-64 object-cover p-2 border"
               />
@@ -259,11 +329,12 @@ const AddToCart = () => {
 
             <div>
               <button
+              onClick={id ? handleEdit : handleSubmit}
                 type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <FaPlus className="mr-2" />
-                Add Product
+                {id ? "Edit" : "Add"} Product
               </button>
             </div>
           </div>

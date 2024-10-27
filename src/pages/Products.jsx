@@ -144,7 +144,7 @@ const Products = () => {
                   <td className="px-6 py-4">
                     <div className="flex items-center">
                       <img
-                        className="h-10 w-10 rounded-full"
+                        className="h-16 w-16 rounded-lg"
                         src={product.image || "/fallback.jpg"}
                         alt={product.name}
                       />

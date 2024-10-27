@@ -1,4 +1,4 @@
-import { ChevronDownIcon, PencilIcon, TrashIcon } from 'lucide-react'
+import { ChevronDownIcon, PencilIcon, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { DasshboardCategories } from '../Data'
 
@@ -87,7 +87,7 @@ const Categories = () => {
                         <PencilIcon className="h-5 w-5" />
                       </button>
                       <button className="text-red-600 hover:text-red-900">
-                        <TrashIcon className="h-5 w-5" />
+                        <Trash2 className="h-5 w-5" />
                       </button>
                     </div>
                   </td>

@@ -23,7 +23,7 @@ const AddToCart = () => {
 
   const sizes = ["XS", "S", "M", "XL", "XXL", "3XL"];
   const colors = ["navy", "yellow", "orange", "green", "red", "teal", "blue"];
-  const categories = ["Clothing", "Accessories", "Footwear"];
+  const categories = ["Fashion", "Brand", "Local"];
   const genders = ["Men", "Women", "Unisex"];
 
   const handleChange = (e) => {

@@ -1,20 +1,19 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import Dashboard from "./Components/Dashboard/Dashboard";
 import AuthLayout from "./Layout/AuthLayout";
 import DashboardLayout from "./Layout/DashboardLayout";
 import RootLayout from "./Layout/RootLayout";
 import About from "./pages/About";
+import AddToCart from "./pages/AddToCart";
 import Cart from "./pages/Cart";
+import Categories from "./pages/Categories";
 import Contact from "./pages/Contact";
 import Favourite from "./pages/Favourite";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Shop from "./pages/Shop";
-import Dashboard from "./Components/Dashboard/Dashboard";
-import AddToCart from "./pages/AddToCart";
-import AllProducts from "./pages/AllProducts";
 import Products from "./pages/Products";
-import Categories from "./pages/Categories";
+import Shop from "./pages/Shop";
 
 export const App = () => {
   return (
@@ -29,7 +28,6 @@ export const App = () => {
           <Route path="contact" element={<Contact />} />
           <Route path="cart" element={<Cart />} />
           <Route path="favourite" element={<Favourite />} />
-          <Route path="AllProducts" element={<AllProducts />} />
         </Route>
 
         {/* Auth Routes */}

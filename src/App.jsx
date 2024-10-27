@@ -10,10 +10,11 @@ import Favourite from "./pages/Favourite";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Shop from "./pages/Shop";
-import Dashboard from "./Components/Dashboard/Dashboard"
-import Products from "./Components/Dashboard/Products";
+import Dashboard from "./Components/Dashboard/Dashboard";
 import AddToCart from "./pages/AddToCart";
 import AllProducts from "./pages/AllProducts";
+import Products from "./pages/Products";
+import Categories from "./pages/Categories";
 
 export const App = () => {
   return (
@@ -41,6 +42,7 @@ export const App = () => {
           <Route index element={<Dashboard />} />
           <Route path="products" element={<Products />} />
           <Route path="addToCart" element={<AddToCart />} />
+          <Route path="categories" element={<Categories />} />
         </Route>
       </Routes>
     </BrowserRouter>

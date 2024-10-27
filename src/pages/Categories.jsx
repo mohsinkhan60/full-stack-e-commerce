@@ -1,11 +1,32 @@
 import { ChevronDownIcon, PencilIcon, Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DasshboardCategories } from '../Data'
+import { collection, getDocs } from 'firebase/firestore';
+import { db, storage } from '../../firebasse';
+import { getDownloadURL, ref } from 'firebase/storage';
 
-
+const getAllProducts = async () => {
+  const querySnapshot = await getDocs(collection(db, "Products"));
+  return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+};
 
 const Categories = () => {
   const [selectedItems, setSelectedItems] = useState([])
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const allProducts = await getAllProducts();
+      const productsWithImageURLs = await Promise.all(
+        allProducts.map(async (product) => {
+          const image = await getDownloadURL(ref(storage, product.image));
+          return { ...product, image };
+        })
+      );
+      setCategories(productsWithImageURLs);
+    };
+    fetchProducts();
+  }, []);
 
   const toggleSelectAll = () => {
     if (selectedItems.length === DasshboardCategories.length) {
@@ -54,12 +75,13 @@ const Categories = () => {
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categories</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Starting Price</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Create by</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">	Product Stock</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">	Product ID</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {DasshboardCategories.map((category) => (
+              {categories.map((category) => (
                 <tr key={category.id}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <input
@@ -80,7 +102,8 @@ const Categories = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.price}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.creator}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.length > 1 ? category.length : 1} Product</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.id}</td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex space-x-2">
                       <button className="text-blue-600 hover:text-blue-900">

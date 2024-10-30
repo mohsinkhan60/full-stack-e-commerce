@@ -10,7 +10,7 @@ import { auth, db, storage } from "../../firebasse";
 
 const AddToCart = () => {
   const {id} = useParams()
-  console.log(id)
+  // console.log(id)
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     image: null,

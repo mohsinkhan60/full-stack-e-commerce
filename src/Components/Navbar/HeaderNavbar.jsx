@@ -1,11 +1,13 @@
 import { ChevronDown, Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import { removeUser } from "../store/slices/Auth";
-import { auth } from "../../../firebasse";
+import { auth, db, storage } from "../../../firebasse";
 import { CgProfile } from "react-icons/cg";
+import { collection, getDocs } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
 
 export const HeaderNavbar = () => {
   const navigate = useNavigate();
@@ -13,6 +15,29 @@ export const HeaderNavbar = () => {
   const user = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
+
+  const [category, setCategory] = useState([]);
+  const [categoryChange, setCategoryChange] = useState("");
+  console.log(category);
+
+  const getAllProducts = async () => {
+    const querySnapshot = await getDocs(collection(db, "Products"));
+    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const allProducts = await getAllProducts();
+      const productsWithImageURLs = await Promise.all(
+        allProducts.map(async (product) => {
+          const image = await getDownloadURL(ref(storage, product.image));
+          return { ...product, image };
+        })
+      );
+      setCategory(productsWithImageURLs);
+    };
+    fetchProducts();
+  }, []);
 
   const logout = async (e) => {
     e.preventDefault();
@@ -30,7 +55,18 @@ export const HeaderNavbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <div className="flex items-center">
-              <span className="text-gray-800 font-medium">All Categories</span>
+              <select
+                className="appearance-none bg-transparent pl-4 pr-8 py-2 text-gray-700 focus:outline-none"
+                value={categoryChange}
+                onChange={(e) => setCategoryChange(e.target.value)}
+              >
+                <option>All Categories</option>
+                {category.map((cata, ind) => (
+                  <option key={ind} value={cata.name}>
+                    {cata.name}
+                  </option>
+                ))}
+              </select>
               <ChevronDown className="h-4 w-4 text-gray-400 ml-1" />
             </div>
           </div>

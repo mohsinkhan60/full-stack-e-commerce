@@ -1,20 +1,45 @@
+import { getDownloadURL, ref } from "firebase/storage";
 import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoSearchSharp } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { db, storage } from "../../../firebasse";
+import { collection, getDocs } from "firebase/firestore";
 
 export const Header = () => {
   const navigate = useNavigate();
-  const [category, setCategory] = useState("All Categories");
+  // const [category, setCategory] = useState("All Categories");
   // const [isOpen, setIsOpen] = useState(false);
 
   const user = useSelector((state) => state.auth.user);
   const products = useSelector((state) => state.cart.products);
   const favourites = useSelector((state) => state.cart.favorites);
 
+  const [category, setCategory] = useState([]);
+  const [categoryChange, setCategoryChange] = useState("");
+  console.log(category);
+
+  const getAllProducts = async () => {
+    const querySnapshot = await getDocs(collection(db, "Products"));
+    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const allProducts = await getAllProducts();
+      const productsWithImageURLs = await Promise.all(
+        allProducts.map(async (product) => {
+          const image = await getDownloadURL(ref(storage, product.image));
+          return { ...product, image };
+        })
+      );
+      setCategory(productsWithImageURLs);
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <header className="bg-[#F3FAF2] flex items-center justify-center shadow-sm sticky top-0 left-0 z-[50000] w-full h-32">
@@ -40,15 +65,17 @@ export const Header = () => {
               <div className="relative">
                 <select
                   className="appearance-none bg-transparent pl-4 pr-8 py-2 text-gray-700 focus:outline-none"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
+                  value={categoryChange}
+                  onChange={(e) => setCategoryChange(e.target.value)}
                 >
                   <option>All Categories</option>
-                  <option>Grocery</option>
-                  <option>Breakfast & Dairy</option>
-                  <option>Milk & Dairies</option>
-                  <option>Pet Food & Toys</option>
+                  {category.map((cata, ind) => (
+                    <option key={ind} value={cata.name}>
+                      {cata.name}
+                    </option>
+                  ))}
                 </select>
+
                 <ChevronDown
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
                   size={16}

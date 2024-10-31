@@ -6,6 +6,7 @@ import { removeFromFavorite } from "../Components/store/slices/Cart";
 const Favourite = () => {
   const dispatch = useDispatch()
   const favourites = useSelector((state) => state.cart.favorites);
+  // console.log(favourites)
 
   const handleRemove = (id) => {
     dispatch(removeFromFavorite(id))

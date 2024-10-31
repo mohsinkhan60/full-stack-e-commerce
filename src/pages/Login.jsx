@@ -2,17 +2,17 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { auth, db } from "../../firebasse";
 import { setUser } from "../Components/store/slices/Auth";
+import { auth, db } from "../../firebasse";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [signState, setSignState] = useState("Register");
+  const [signState, setSignState] = useState("Login");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +25,8 @@ const Login = () => {
   const signup = async (name, email, password) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      const userDocRef = doc(db, "users", res.user.uid);
+      const userDocRef = doc(db
+        , "users", res.user.uid);
       await setDoc(userDocRef, {
         uid: res.user.uid,
         name: name,
@@ -33,7 +34,7 @@ const Login = () => {
         isAdmin: false,
       });
 
-      dispatch(setUser({ uid: res.user.uid, email, name }));
+      dispatch(setUser({ uid: res.user.uid, email, name, isAdmin: false }));
       navigate("/");
     } catch (error) {
       setError(`Failed to register: ${error.message}`);
@@ -45,7 +46,20 @@ const Login = () => {
   const login = async (email, password) => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      dispatch(setUser({ uid: response.user.uid, email, name })); // Dispatch user info
+      
+      const userDocRef = doc(db, "users", response.user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+      const userData = userDocSnap.data();
+
+      dispatch(
+        setUser({
+          uid: response.user.uid,
+          email: response.user.email,
+          name: userData?.name || name,
+          isAdmin: userData?.isAdmin || false,
+        })
+      );
+
       navigate("/");
     } catch (error) {
       setError(`Failed to authenticate: ${error.message}`);
@@ -150,7 +164,7 @@ const Login = () => {
             }`}
             disabled={loading}
           >
-            {signState}
+            {loading ? "Processing..." : signState}
           </button>
           <div className="flex items-center justify-between pb-6">
             <p className="mb-0 mr-2">
@@ -163,7 +177,7 @@ const Login = () => {
               onClick={() =>
                 setSignState(signState === "Login" ? "Register" : "Login")
               }
-              className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10"
+              className="inline-block rounded border-2 border-orange-500 px-6 py-1 text-xs font-medium uppercase leading-normal text-orange-500 transition duration-150 ease-in-out hover:bg-orange-500 hover:text-white"
             >
               {signState === "Login" ? "Register" : "Login"}
             </button>

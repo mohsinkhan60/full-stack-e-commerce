@@ -95,6 +95,16 @@ const DashboardSidebar = ({ isOpen, toggleSidebar }) => {
               }}
             />
             <MenuItem
+              icon={ShoppingCart}
+              text="Orders"
+              isActive={activeItem === "Orders"}
+              isOpen={openSubmenu === "Orders"}
+              onClick={() => {
+                navigate("/dashboard/cart");
+                setActiveItem("Orders");
+              }}
+            />
+            <MenuItem
               icon={Package}
               text="Inventory"
               isActive={activeItem === "Inventory"}
@@ -103,15 +113,7 @@ const DashboardSidebar = ({ isOpen, toggleSidebar }) => {
                 setActiveItem("Inventory");
               }}
             />
-            <MenuItem
-              icon={ShoppingCart}
-              text="Orders"
-              isActive={activeItem === "Orders"}
-              isOpen={openSubmenu === "Orders"}
-              onClick={() => {
-                setActiveItem("Orders");
-              }}
-            />
+
             <MenuItem
               icon={CreditCard}
               text="Purchases"

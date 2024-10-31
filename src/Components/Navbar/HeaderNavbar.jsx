@@ -1,24 +1,22 @@
+import { signOut } from "firebase/auth";
+import { collection, getDocs } from "firebase/firestore";
 import { ChevronDown, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { signOut } from "firebase/auth";
-import { removeUser } from "../store/slices/Auth";
-import { auth, db, storage } from "../../../firebasse";
 import { CgProfile } from "react-icons/cg";
-import { collection, getDocs } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { removeUser } from "../store/slices/Auth";
+import { auth, db } from "../../../firebasse";
 
 export const HeaderNavbar = () => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
-
+  console.log(user)
   const dispatch = useDispatch();
-
   const [category, setCategory] = useState([]);
   const [categoryChange, setCategoryChange] = useState("");
-  console.log(category);
 
   const getAllProducts = async () => {
     const querySnapshot = await getDocs(collection(db, "Products"));
@@ -28,19 +26,12 @@ export const HeaderNavbar = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const allProducts = await getAllProducts();
-      const productsWithImageURLs = await Promise.all(
-        allProducts.map(async (product) => {
-          const image = await getDownloadURL(ref(storage, product.image));
-          return { ...product, image };
-        })
-      );
-      setCategory(productsWithImageURLs);
+      setCategory(allProducts);
     };
     fetchProducts();
   }, []);
 
-  const logout = async (e) => {
-    e.preventDefault();
+  const logout = async () => {
     try {
       await signOut(auth);
       dispatch(removeUser());
@@ -49,6 +40,7 @@ export const HeaderNavbar = () => {
       console.log("Error during sign out...");
     }
   };
+
   return (
     <nav className="bg-white shadow-md">
       <div className="container xl:px-5 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,6 +98,7 @@ export const HeaderNavbar = () => {
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex items-center mx-0 sm:mx-3"
                     aria-label="Profile menu"
+                    aria-expanded={isOpen}
                   >
                     <CgProfile
                       className="h-6 w-6 text-gray-700 cursor-pointer"
@@ -118,13 +111,15 @@ export const HeaderNavbar = () => {
 
                   {isOpen && (
                     <div className="absolute flex-col border flex gap-2 right-0 mt-2 w-48 bg-white shadow-lg rounded-lg p-4 z-50">
-                      <button
-                        onClick={() => navigate("/dashboard")}
-                        className="bg-gray-800 hover:bg-gray-700 px-2 py-1 rounded-xl text-white"
-                        aria-label="Logout"
-                      >
-                        Dashboard
-                      </button>
+                      {user.isAdmin && (
+                        <button
+                          onClick={() => navigate("/dashboard")}
+                          className="bg-gray-800 hover:bg-gray-700 px-2 py-1 rounded-xl text-white"
+                          aria-label="Dashboard"
+                        >
+                          Dashboard
+                        </button>
+                      )}
                       <button
                         onClick={logout}
                         className=" bg-gray-800 hover:bg-gray-700 px-2 py-1 rounded-xl text-white"
@@ -155,9 +150,10 @@ export const HeaderNavbar = () => {
               )}
             </div>
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="ml-4 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
               aria-label="Open mobile menu"
+              aria-expanded={isMobileMenuOpen}
             >
               <Menu className="h-6 w-6" />
             </button>
@@ -165,8 +161,8 @@ export const HeaderNavbar = () => {
         </div>
       </div>
 
-      {/* Mobile menu, show/hide based on menu state */}
-      {isOpen && (
+      {/* Mobile menu */}
+      {isMobileMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a

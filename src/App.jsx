@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import Products from "./pages/Products";
 import Shop from "./pages/Shop";
 import DashboardCart from "./pages/DashboardCart";
+import AllUsers from "./pages/AllUsers";
 
 export const App = () => {
   return (
@@ -42,6 +43,7 @@ export const App = () => {
           <Route path="products" element={<Products />} />
           <Route path="addToCart" element={<AddToCart />} />
           <Route path="categories" element={<Categories />} />
+          <Route path="allusers" element={<AllUsers />} />
           <Route path="cart" element={<DashboardCart />} />
           <Route path="edit-product/:id" element={<AddToCart />} />
         </Route>

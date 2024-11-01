@@ -106,11 +106,12 @@ const DashboardSidebar = ({ isOpen, toggleSidebar }) => {
             />
             <MenuItem
               icon={Package}
-              text="Inventory"
-              isActive={activeItem === "Inventory"}
-              isOpen={openSubmenu === "Inventory"}
+              text="All Users"
+              isActive={activeItem === "All Users"}
+              isOpen={openSubmenu === "All Users"}
               onClick={() => {
-                setActiveItem("Inventory");
+                navigate("/dashboard/allusers");
+                setActiveItem("All Users");
               }}
             />
 

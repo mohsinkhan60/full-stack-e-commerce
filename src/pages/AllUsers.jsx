@@ -1,7 +1,7 @@
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
-import { Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { db, storage } from "../../firebasse";
 
 const getAllUsers = async () => {
@@ -82,8 +82,7 @@ const AllUsers = () => {
                       }
                     }}
                     checked={
-                      selectedUsers.length === users.length &&
-                      users.length > 0
+                      selectedUsers.length === users.length && users.length > 0
                     }
                   />
                 </th>
@@ -94,7 +93,7 @@ const AllUsers = () => {
                   Email
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  isAdmin
+                  is Admin
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Action
@@ -122,17 +121,25 @@ const AllUsers = () => {
                     </div>
                   </td>
                   <td className="px-6 py-4">{user.email}</td>
+                  <td className="px-6 py-4">{user.isAdmin ? "Yes" : "No"}</td>
                   <td className="px-6 py-4">
-                    {user.isAdmin ? "Yes" : "No"}
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex space-x-2">
+                    <div className="flex items-center space-x-2">
+                      <NavLink to={`/dashboard/edit-user/${user.id}`}>
+                        <button className="flex items-center justify-center bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600">
+                          Edit
+                        </button>
+                      </NavLink>
                       <button
                         onClick={() => handleDelete(user.id)}
                         disabled={isDisabled}
-                        className="text-red-600 hover:text-red-900 cursor-pointer"
+                        className={`px-3 py-1 flex items-center justify-center rounded-md 
+                ${
+                  isDisabled
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-red-500 text-white hover:bg-red-600"
+                }`}
                       >
-                        <Trash2 className="h-5 w-5" />
+                        Delete
                       </button>
                     </div>
                   </td>

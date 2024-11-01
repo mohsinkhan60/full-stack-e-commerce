@@ -16,6 +16,7 @@ import Products from "./pages/Products";
 import Shop from "./pages/Shop";
 import DashboardCart from "./pages/DashboardCart";
 import AllUsers from "./pages/AllUsers";
+import EditUser from "./pages/EditUser";
 
 export const App = () => {
   return (
@@ -46,6 +47,7 @@ export const App = () => {
           <Route path="allusers" element={<AllUsers />} />
           <Route path="cart" element={<DashboardCart />} />
           <Route path="edit-product/:id" element={<AddToCart />} />
+          <Route path="edit-user/:id" element={<EditUser />} />
         </Route>
       </Routes>
     </BrowserRouter>

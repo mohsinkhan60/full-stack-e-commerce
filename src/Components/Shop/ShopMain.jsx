@@ -66,7 +66,7 @@ const ShopMain = () => {
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-32 h-32 object-contain"
+                  className="w-52 h-52 object-contain"
                 />
               </div>
             </div>

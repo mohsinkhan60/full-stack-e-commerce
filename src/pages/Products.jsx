@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import { ChevronDown, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { db, storage } from "../../firebasse";
 
 const getAllProducts = async () => {
@@ -12,10 +15,14 @@ const getAllProducts = async () => {
 };
 
 const Products = () => {
+  const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
+
+  const DEMO_EMAIL = import.meta.env.VITE_DEMO_EMAIL;
+  const isDemoUser = user?.email === DEMO_EMAIL;
 
   const toggleProductSelection = (productId) => {
     setSelectedProducts((prev) =>
@@ -30,19 +37,19 @@ const Products = () => {
       await deleteDoc(doc(db, "Products", uid));
       console.log(`Successfully deleted product with id: ${uid}`);
     } catch (error) {
-      console.error("Error deleting user data from Firestore:", error);
+      console.error("Error deleting product:", error);
       throw error;
     }
   };
 
   const handleDelete = async (productId) => {
     setIsDisabled(true);
-
     try {
       await deleteUserData(productId);
       setProducts((prev) => prev.filter((product) => product.id !== productId));
+      toast.success("Product deleted successfully");
     } catch (error) {
-      console.error("Error deleting user data:", error);
+      toast.error("Error deleting product");
     } finally {
       setIsDisabled(false);
     }
@@ -50,29 +57,34 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const allProducts = await getAllProducts();
-      const productsWithImageURLs = await Promise.all(
-        allProducts.map(async (product) => {
-          try {
-            const imageUrl = await getDownloadURL(ref(storage, product.image));
-            return { ...product, image: imageUrl };
-          } catch (error) {
-            console.error("Error fetching product image:", error);
-            return { ...product, image: "" };
-          }
-        })
-      );
-      setProducts(productsWithImageURLs);
+      try {
+        const allProducts = await getAllProducts();
+        const productsWithImages = await Promise.all(
+          allProducts.map(async (product) => {
+            try {
+              const imageUrl = await getDownloadURL(ref(storage, product.image));
+              return { ...product, image: imageUrl };
+            } catch {
+              return { ...product, image: "" };
+            }
+          })
+        );
+        setProducts(productsWithImages);
+      } catch (error) {
+        console.error("Error loading products:", error);
+      }
     };
+
     fetchProducts();
   }, []);
 
   return (
-    <div className="px-4 sm:px-6 py-8 container mx-auto items-center justify-center max-w-full my-8 lg:px-4 xl:px-5">
+    <div className="px-4 sm:px-6 py-8 container mx-auto max-w-full my-8 lg:px-4 xl:px-5">
       <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-4 sm:mb-0">
           All Product List
         </h1>
+
         <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
           <button
             onClick={() => navigate("/dashboard/addToCart")}
@@ -80,6 +92,7 @@ const Products = () => {
           >
             Add Product
           </button>
+
           <div className="relative w-full sm:w-auto">
             <select className="w-full sm:w-auto appearance-none bg-white border border-gray-300 rounded-md py-2 pl-3 pr-8 text-gray-700 leading-tight focus:outline-none focus:border-blue-500">
               <option>This Month</option>
@@ -101,11 +114,9 @@ const Products = () => {
                     type="checkbox"
                     className="form-checkbox h-4 w-4 text-blue-600"
                     onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedProducts(products.map((p) => p.id));
-                      } else {
-                        setSelectedProducts([]);
-                      }
+                      setSelectedProducts(
+                        e.target.checked ? products.map((p) => p.id) : []
+                      );
                     }}
                     checked={
                       selectedProducts.length === products.length &&
@@ -160,19 +171,32 @@ const Products = () => {
                   </td>
                   <td className="px-6 py-4">${product.price}</td>
                   <td className="px-6 py-4">
-                    {product.stockLeft} Item Left / {product.stockSold} Sold
+                    {product.stockLeft} Left / {product.stockSold} Sold
                   </td>
                   <td className="px-6 py-4">{product.category}</td>
                   <td className="px-6 py-4">
                     <div className="flex space-x-2">
-                    <NavLink to={`/dashboard/edit-product/${product.id}`}>
-                        <button className="flex text-green-800 h-4 w-6">
-                          <CiEdit className="h-5 w-5" />
-                        </button>
-                      </NavLink>
                       <button
-                        onClick={() => handleDelete(product.id)}
-                        disabled={isDisabled}
+                        onClick={() => {
+                          if (isDemoUser) {
+                            toast.info("Demo account cannot edit products.");
+                          } else {
+                            navigate(`/dashboard/edit-product/${product.id}`);
+                          }
+                        }}
+                        className="flex text-green-800 h-4 w-6"
+                      >
+                        <CiEdit className="h-5 w-5" />
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          if (isDemoUser) {
+                            toast.info("Demo account cannot delete products.");
+                          } else {
+                            handleDelete(product.id);
+                          }
+                        }}
                         className="text-red-600 hover:text-red-900"
                       >
                         <Trash2 className="h-5 w-5" />

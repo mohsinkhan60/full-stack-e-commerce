@@ -56,12 +56,14 @@ export const Header = () => {
     fetchProducts();
   }, []);
 
+
+
   return (
     <header className="bg-[#F3FAF2] flex items-center justify-center shadow-sm sticky top-0 left-0 z-[50000] w-full h-24 lg:h-32">
       <div className="container mx-auto max-w-full px-2 lg:px-4 xl:px-5">
         <div className="flex justify-between items-center h-full">
-          <div className="flex items-center">
-            <img src="/Navbar/logo.png" alt="Logo" className="h-8 lg:h-10" />
+          <div className="flex items-center cursor-pointer">
+            <img onClick={() => navigate("/")} src="/Navbar/logo.png" alt="Logo" className="h-8 lg:h-10" />
           </div>
 
           <div className="flex items-center flex-1 mx-3">

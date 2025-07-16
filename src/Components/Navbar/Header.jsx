@@ -75,7 +75,6 @@ export const Header = () => {
                 </div>
               </>
             )}
-          
 
             <div className="relative hidden lg:flex items-center flex-1 mx-3">
               <div className="relative">
@@ -146,7 +145,7 @@ export const Header = () => {
                 )}
               </div>
             )}
-            </div>
+          </div>
 
           <div
             onClick={() => navigate("/favourite")}

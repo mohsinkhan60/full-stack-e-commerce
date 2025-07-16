@@ -9,8 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { auth, db, storage } from "../../firebasse";
 
 const AddToCart = () => {
-  const {id} = useParams()
-  // console.log(id)
+  const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     image: null,
@@ -42,7 +41,14 @@ const AddToCart = () => {
     }
   };
 
-  const handleCreateNewListing = async (image, name, price, description, category, gender) => {
+  const handleCreateNewListing = async (
+    image,
+    name,
+    price,
+    description,
+    category,
+    gender
+  ) => {
     const imageRef = ref(storage, `uploads/images/${Date.now()}-${image.name}`);
     await uploadBytes(imageRef, image);
     return await addDoc(collection(db, "Products"), {
@@ -67,7 +73,14 @@ const AddToCart = () => {
     }
 
     try {
-      await handleCreateNewListing(image, name, price, description, category, gender);
+      await handleCreateNewListing(
+        image,
+        name,
+        price,
+        description,
+        category,
+        gender
+      );
       setFormData({
         image: null,
         name: "",
@@ -94,41 +107,39 @@ const AddToCart = () => {
         : [...prevColors, color]
     );
   };
-  
-const updateUserData = async (uid) => {
-  const docRef = doc(db, "Products", uid);
-  const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists()) {
-    const data = docSnap.data();
-    return data;
-  } else {
-    console.log("No such document!");
-  }
-};
+  const updateUserData = async (uid) => {
+    const docRef = doc(db, "Products", uid);
+    const docSnap = await getDoc(docRef);
 
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      return data;
+    } else {
+      console.log("No such document!");
+    }
+  };
 
-const updateProductPost = async (id, updatedData) => {
-  try {
-    const imageRef = ref(
-      storage,
-      `uploads/images/${Date.now()}-${updatedData?.image.name}`
-    );
-    const uploadResults = await uploadBytes(imageRef, updatedData?.image);
-    const ProductRef = doc(db, "Products", id);
-    await updateDoc(ProductRef, {
-      ...updatedData,
-      image: uploadResults.ref.fullPath,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-const getImageUrl = (path) => {
-  return getDownloadURL(ref(storage, path));
-};
+  const updateProductPost = async (id, updatedData) => {
+    try {
+      const imageRef = ref(
+        storage,
+        `uploads/images/${Date.now()}-${updatedData?.image.name}`
+      );
+      const uploadResults = await uploadBytes(imageRef, updatedData?.image);
+      const ProductRef = doc(db, "Products", id);
+      await updateDoc(ProductRef, {
+        ...updatedData,
+        image: uploadResults.ref.fullPath,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getImageUrl = (path) => {
+    return getDownloadURL(ref(storage, path));
+  };
 
-  
   useEffect(() => {
     const getProductDetails = async () => {
       const response = await updateUserData(id);
@@ -136,8 +147,6 @@ const getImageUrl = (path) => {
       const url = await getImageUrl(response?.image || response?.imageURL).then(
         (url) => url
       );
-
-      console.log(url);
 
       setFormData({
         ...formData,
@@ -163,7 +172,9 @@ const getImageUrl = (path) => {
     <div className="container mx-auto p-4 pt-20 max-w-4xl">
       <form className="space-y-6">
         <div className="bg-white p-5 rounded-xl">
-          <h1 className="text-gray-700 text-xl font-semibold mb-6">{id ? "Edit" : "Add"} Product</h1>
+          <h1 className="text-gray-700 text-xl font-semibold mb-6">
+            {id ? "Edit" : "Add"} Product
+          </h1>
           <div className="flex items-center justify-center bg-white mt-4 relative w-80 max-w-md h-64 mx-auto">
             <input
               type="file"
@@ -175,11 +186,11 @@ const getImageUrl = (path) => {
             />
             {formData.image ? (
               <img
-              src={
-                typeof formData?.image === "object"
-                  ? URL.createObjectURL(formData?.image)
-                  : formData?.image
-              }
+                src={
+                  typeof formData?.image === "object"
+                    ? URL.createObjectURL(formData?.image)
+                    : formData?.image
+                }
                 alt="Uploaded Preview"
                 className="w-80 max-w-md h-64 object-cover p-2 border"
               />
@@ -198,10 +209,15 @@ const getImageUrl = (path) => {
         </div>
 
         <div className="bg-white p-4 rounded-2xl">
-          <h2 className="text-xl font-semibold mb-6 text-gray-700">Product Information</h2>
+          <h2 className="text-xl font-semibold mb-6 text-gray-700">
+            Product Information
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 Name
               </label>
               <input
@@ -216,7 +232,10 @@ const getImageUrl = (path) => {
             </div>
 
             <div className="flex-1">
-              <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="price"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 <FaTags className="inline mr-2" />
                 Price
               </label>
@@ -235,7 +254,10 @@ const getImageUrl = (path) => {
           <div className="space-y-8 mt-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="category"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Product Categories
                 </label>
                 <select
@@ -247,13 +269,18 @@ const getImageUrl = (path) => {
                 >
                   <option value="">Select Category</option>
                   {categories.map((cat) => (
-                    <option key={cat} value={cat}>{cat}</option>
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">
+                <label
+                  htmlFor="gender"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
                   Gender
                 </label>
                 <select
@@ -265,7 +292,9 @@ const getImageUrl = (path) => {
                 >
                   <option value="">Select Gender</option>
                   {genders.map((gen) => (
-                    <option key={gen} value={gen}>{gen}</option>
+                    <option key={gen} value={gen}>
+                      {gen}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -273,7 +302,9 @@ const getImageUrl = (path) => {
 
             <div className="flex flex-col gap-3 lg:justify-evenly lg:flex-row">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-5">Size :</label>
+                <label className="block text-sm font-medium text-gray-700 mb-5">
+                  Size :
+                </label>
                 <div className="flex flex-wrap gap-2">
                   {sizes.map((size) => (
                     <button
@@ -291,7 +322,9 @@ const getImageUrl = (path) => {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-5">Colors :</label>
+                <label className="block text-sm font-medium text-gray-700 mb-5">
+                  Colors :
+                </label>
                 <div className="flex flex-wrap gap-2">
                   {colors.map((color) => (
                     <button
@@ -311,7 +344,10 @@ const getImageUrl = (path) => {
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
                 <FaTags className="inline mr-2" />
                 Description
               </label>
@@ -329,7 +365,7 @@ const getImageUrl = (path) => {
 
             <div>
               <button
-              onClick={id ? handleEdit : handleSubmit}
+                onClick={id ? handleEdit : handleSubmit}
                 type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >

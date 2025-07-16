@@ -2,15 +2,14 @@ import { Star, XCircle } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromFavorite } from "../Components/store/slices/Cart";
 
-
 const Favourite = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const favourites = useSelector((state) => state.cart.favorites);
-  // console.log(favourites)
 
   const handleRemove = (id) => {
-    dispatch(removeFromFavorite(id))
-  }
+    dispatch(removeFromFavorite(id));
+  };
+
   return (
     <div className="container mx-auto items-center justify-center max-w-full my-20 lg:px-4 xl:px-5">
       <div className="flex flex-col gap-8">
@@ -66,7 +65,10 @@ const Favourite = () => {
                         ${product.price}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <button onClick={() => handleRemove(product.id)} className="text-black hover:text-red-500">
+                        <button
+                          onClick={() => handleRemove(product.id)}
+                          className="text-black hover:text-red-500"
+                        >
                           <XCircle className="h-5 w-5" />
                         </button>
                       </td>
@@ -76,7 +78,7 @@ const Favourite = () => {
               </table>
             ) : (
               <div className="flex items-center justify-center">
-              Please add item in favourites
+                Please add item in favourites
               </div>
             )}
           </div>

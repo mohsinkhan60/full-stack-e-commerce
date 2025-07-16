@@ -13,7 +13,6 @@ export const HeaderNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
-  console.log(user)
   const dispatch = useDispatch();
   const [category, setCategory] = useState([]);
   const [categoryChange, setCategoryChange] = useState("");

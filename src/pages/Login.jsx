@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../Components/store/slices/Auth";
 import { auth, db } from "../../firebasse";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,30 +24,34 @@ const Login = () => {
 
   // User signup function
   const signup = async (name, email, password) => {
+    const loading = toast.loading("Pending...");
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      const userDocRef = doc(db
-        , "users", res.user.uid);
+      const userDocRef = doc(db, "users", res.user.uid);
       await setDoc(userDocRef, {
         uid: res.user.uid,
         name: name,
         email: email,
         isAdmin: false,
       });
-
+      toast.success("Login successful!");
       dispatch(setUser({ uid: res.user.uid, email, name, isAdmin: false }));
       navigate("/");
     } catch (error) {
       setError(`Failed to register: ${error.message}`);
       console.error(error);
+    } finally {
+      toast.dismiss(loading);
+      setLoading(false);
+      setError("");
     }
   };
 
   // User login function
   const login = async (email, password) => {
+    const loading = toast.loading("Logging in...");
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      
       const userDocRef = doc(db, "users", response.user.uid);
       const userDocSnap = await getDoc(userDocRef);
       const userData = userDocSnap.data();
@@ -60,10 +65,15 @@ const Login = () => {
         })
       );
 
+      toast.success("Login successful!");
       navigate("/");
     } catch (error) {
-      setError(`Failed to authenticate: ${error.message}`);
+      toast.error(`Login failed: ${error.message}`);
       console.error(error);
+    } finally {
+      toast.dismiss(loading);
+      setLoading(false);
+      setError("");
     }
   };
 

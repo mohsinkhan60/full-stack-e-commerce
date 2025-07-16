@@ -1,27 +1,25 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import AuthLayout from "./Layout/AuthLayout";
 import DashboardLayout from "./Layout/DashboardLayout";
 import RootLayout from "./Layout/RootLayout";
 import About from "./pages/About";
 import AddToCart from "./pages/AddToCart";
+import AllUsers from "./pages/AllUsers";
 import Cart from "./pages/Cart";
 import Categories from "./pages/Categories";
 import Contact from "./pages/Contact";
+import DashboardCart from "./pages/DashboardCart";
+import EditUser from "./pages/EditUser";
 import Favourite from "./pages/Favourite";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
 import Shop from "./pages/Shop";
-import DashboardCart from "./pages/DashboardCart";
-import AllUsers from "./pages/AllUsers";
-import EditUser from "./pages/EditUser";
 
 export const App = () => {
   return (
     <BrowserRouter>
-      <ToastContainer autoClose={3000} position="top-right" />
       <Routes>
         {/* Root Routes */}
         <Route path="/" element={<RootLayout />}>

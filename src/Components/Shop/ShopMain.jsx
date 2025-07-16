@@ -3,15 +3,19 @@ import { useEffect, useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { CiHeart } from "react-icons/ci";
 import { getDownloadURL, ref } from "firebase/storage";
-import { useDispatch } from "react-redux";
-import { addToCart, addToFavorite } from "../store/slices/Cart";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  addToFavorite,
+  removeFromFavorite,
+} from "../store/slices/Cart";
 import { db, storage } from "../../../firebasse";
 import Skeleton from "react-loading-skeleton";
-import 'react-loading-skeleton/dist/skeleton.css';
+import "react-loading-skeleton/dist/skeleton.css";
 
 const getAllProducts = async () => {
   const querySnapshot = await getDocs(collection(db, "Products"));
-  return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
 const SkeletonCard = () => (
@@ -34,6 +38,7 @@ const SkeletonCard = () => (
 
 const ShopMain = () => {
   const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.cart.favorites);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -67,7 +72,13 @@ const ShopMain = () => {
   const handleAddFavourite = (e, product) => {
     e.stopPropagation();
     e.preventDefault();
-    dispatch(addToFavorite(product));
+
+    const isFavorite = favorites.some((item) => item.id === product.id);
+    if (isFavorite) {
+      dispatch(removeFromFavorite(product.id));
+    } else {
+      dispatch(addToFavorite(product));
+    }
   };
 
   return (
@@ -92,54 +103,64 @@ const ShopMain = () => {
           ? Array(8)
               .fill(0)
               .map((_, index) => <SkeletonCard key={index} />)
-          : products.map((product) => (
-              <div
-                key={product.id}
-                className="bg-transparent rounded-lg border hover:border-orange-300 overflow-hidden"
-              >
-                <div className="p-4">
-                  <div className="relative flex justify-center items-center bg-[#F1F1F1] rounded-xl w-full h-52 p-3">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-52 h-52 object-contain"
-                    />
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold mb-2">
-                    {product.name}
-                  </h3>
-                  <div className="flex justify-between items-center mb-2">
-                    <div>
-                      <span className="text-lg font-bold text-gray-900">
-                        ${product.price}
-                      </span>
-                      {product.oldPrice && (
-                        <span className="ml-2 text-sm text-gray-400 line-through">
-                          ${product.oldPrice}
-                        </span>
-                      )}
+          : products.map((product) => {
+              const isFavorite = favorites.some(
+                (item) => item.id === product.id
+              );
+
+              return (
+                <div
+                  key={product.id}
+                  className="bg-transparent rounded-lg border hover:border-orange-300 overflow-hidden"
+                >
+                  <div className="p-4">
+                    <div className="relative flex justify-center items-center bg-[#F1F1F1] rounded-xl w-full h-52 p-3">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-52 h-52 object-contain"
+                      />
                     </div>
                   </div>
-                  <div className="flex flex-row gap-2">
-                    <button
-                      onClick={(e) => handleAddToCart(e, product)}
-                      className="w-full flex-1 flex items-center justify-center gap-3 bg-[#F1F1F1] rounded p-1 hover:text-white hover:bg-orange-500 transition-colors"
-                    >
-                      Add To Cart
-                      <IoCartOutline />
-                    </button>
-                    <button
-                      onClick={(e) => handleAddFavourite(e, product)}
-                      className="flex flex-[.2] items-center justify-center bg-[#F1F1F1] rounded p-1 hover:text-white hover:bg-orange-500 transition-colors"
-                    >
-                      <CiHeart className="w-8 h-8" />
-                    </button>
+                  <div className="p-4">
+                    <h3 className="text-lg font-semibold mb-2">
+                      {product.name}
+                    </h3>
+                    <div className="flex justify-between items-center mb-2">
+                      <div>
+                        <span className="text-lg font-bold text-gray-900">
+                          ${product.price}
+                        </span>
+                        {product.oldPrice && (
+                          <span className="ml-2 text-sm text-gray-400 line-through">
+                            ${product.oldPrice}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex flex-row gap-2">
+                      <button
+                        onClick={(e) => handleAddToCart(e, product)}
+                        className="w-full flex-1 flex items-center justify-center gap-3 bg-[#F1F1F1] rounded p-1 hover:text-white hover:bg-orange-500 transition-colors"
+                      >
+                        Add To Cart
+                        <IoCartOutline />
+                      </button>
+                      <button
+                        onClick={(e) => handleAddFavourite(e, product)}
+                        className={`flex flex-[.2] items-center justify-center rounded p-1 transition-colors ${
+                          isFavorite
+                            ? "bg-red-500 text-white"
+                            : "bg-[#F1F1F1] text-black hover:text-white hover:bg-orange-500"
+                        }`}
+                      >
+                        <CiHeart className="w-8 h-8" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
       </div>
     </div>
   );

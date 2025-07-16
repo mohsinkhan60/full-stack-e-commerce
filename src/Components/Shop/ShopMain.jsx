@@ -154,7 +154,7 @@ const ShopMain = () => {
                             : "bg-[#F1F1F1] text-black hover:text-white hover:bg-orange-500"
                         }`}
                       >
-                        <CiHeart className="w-8 h-8" />
+                        <CiHeart className={'w-7 h-7'} />
                       </button>
                     </div>
                   </div>

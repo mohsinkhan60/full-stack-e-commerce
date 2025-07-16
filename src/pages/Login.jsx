@@ -38,6 +38,7 @@ const Login = () => {
       dispatch(setUser({ uid: res.user.uid, email, name, isAdmin: false }));
       navigate("/");
     } catch (error) {
+      toast.error(`Failed to register: ${error.message}`);
       setError(`Failed to register: ${error.message}`);
       console.error(error);
     } finally {

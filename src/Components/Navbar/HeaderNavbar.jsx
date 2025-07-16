@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeUser } from "../store/slices/Auth";
 import { auth, db } from "../../../firebasse";
+import { toast } from "react-toastify";
 
 export const HeaderNavbar = () => {
   const navigate = useNavigate();
@@ -31,12 +32,18 @@ export const HeaderNavbar = () => {
   }, []);
 
   const logout = async () => {
+    const loading = toast.loading("Pending...");
     try {
+      toast.success("Logout successful!");
       await signOut(auth);
       dispatch(removeUser());
       navigate("/login");
     } catch (error) {
       console.log("Error during sign out...");
+    }finally{
+      toast.dismiss(loading);
+      setIsOpen(false);
+      setIsMobileMenuOpen(false);
     }
   };
 

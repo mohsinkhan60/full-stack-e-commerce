@@ -3,6 +3,8 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { db, storage } from "../../firebasse";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const getAllUsers = async () => {
   const querySnapshot = await getDocs(collection(db, "users"));
@@ -10,9 +12,12 @@ const getAllUsers = async () => {
 };
 
 const AllUsers = () => {
+  const user = useSelector((state) => state.auth.user);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
   const [users, setUsers] = useState([]);
+  const DEMO_EMAIL = import.meta.env.VITE_DEMO_EMAIL;
+  const isDemoUser = user?.email === DEMO_EMAIL;
 
   const toggleUserSelection = (userId) => {
     setSelectedUsers((prev) =>
@@ -130,7 +135,13 @@ const AllUsers = () => {
                         </button>
                       </NavLink>
                       <button
-                        onClick={() => handleDelete(user.id)}
+                        onClick={() => {
+                          if (isDemoUser) {
+                            toast.info("Demo account cannot delete products.");
+                          } else {
+                            handleDelete(user.id);
+                          }
+                        }}
                         disabled={isDisabled}
                         className={`px-3 py-1 flex items-center justify-center rounded-md 
                 ${

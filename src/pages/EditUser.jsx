@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../firebasse";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const fetchUserData = async (uid) => {
   const docRef = doc(db, "users", uid);
@@ -26,8 +28,11 @@ const updateUserDetails = async (id, updatedData) => {
 };
 
 const EditUser = () => {
+  const user = useSelector((state) => state.auth.user);
   const { id } = useParams();
   const navigate = useNavigate();
+  const DEMO_EMAIL = import.meta.env.VITE_DEMO_EMAIL;
+  const isDemoUser = user?.email === DEMO_EMAIL;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -58,6 +63,10 @@ const EditUser = () => {
 
   const handleEdit = async (e) => {
     e.preventDefault();
+    if (isDemoUser) {
+      toast.info("Demo users cannot add new products.");
+      return;
+    }
     await updateUserDetails(id, formData);
     navigate("/dashboard/allusers");
   };
@@ -65,7 +74,10 @@ const EditUser = () => {
   return (
     <div className="grid grid-cols-1 container mx-auto p-4 pt-20 max-w-4xl gap-2">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           Name
         </label>
         <input
@@ -78,7 +90,10 @@ const EditUser = () => {
         />
       </div>
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor="email"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           Email
         </label>
         <input
@@ -91,7 +106,10 @@ const EditUser = () => {
         />
       </div>
       <div>
-        <label htmlFor="isAdmin" className="block text-sm font-medium text-gray-700 mb-1">
+        <label
+          htmlFor="isAdmin"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
           Is Admin
         </label>
         <input

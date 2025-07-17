@@ -6,6 +6,8 @@ import { CiEdit } from "react-icons/ci";
 import { NavLink } from "react-router-dom";
 import { db, storage } from "../../firebasse";
 import { DasshboardCategories } from "../Data";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const getAllProducts = async () => {
   const querySnapshot = await getDocs(collection(db, "Products"));
@@ -13,9 +15,13 @@ const getAllProducts = async () => {
 };
 
 const Categories = () => {
+  const user = useSelector((state) => state.auth.user);
+
   const [selectedItems, setSelectedItems] = useState([]);
   const [isDisabled, setIsDisabled] = useState(false);
   const [categories, setCategories] = useState([]);
+  const DEMO_EMAIL = import.meta.env.VITE_DEMO_EMAIL;
+  const isDemoUser = user?.email === DEMO_EMAIL;
 
   const deleteUserData = async (uid) => {
     try {
@@ -171,7 +177,13 @@ const Categories = () => {
                         </button>
                       </NavLink>
                       <button
-                        onClick={() => handleDelete(category.id)}
+                        onClick={() => {
+                          if (isDemoUser) {
+                            toast.info("Demo account cannot delete products.");
+                          } else {
+                            handleDelete(category.id);
+                          }
+                        }}
                         disabled={isDisabled}
                         className="text-red-600 hover:text-red-900"
                       >

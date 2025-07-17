@@ -146,6 +146,10 @@ const AddToCart = () => {
 
   const handleEdit = async (e) => {
     e.preventDefault();
+    if (isDemoUser) {
+      toast.info("Demo users cannot add new products.");
+      return;
+    }
     await updateProductPost(id, formData);
     navigate("/shop");
   };

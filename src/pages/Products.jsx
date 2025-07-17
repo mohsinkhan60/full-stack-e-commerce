@@ -177,13 +177,9 @@ const Products = () => {
                   <td className="px-6 py-4">
                     <div className="flex space-x-2">
                       <button
-                        onClick={() => {
-                          if (isDemoUser) {
-                            toast.info("Demo account cannot edit products.");
-                          } else {
-                            navigate(`/dashboard/edit-product/${product.id}`);
-                          }
-                        }}
+                        onClick={() => 
+                            navigate(`/dashboard/edit-product/${product.id}`)
+                        }
                         className="flex text-green-800 h-4 w-6"
                       >
                         <CiEdit className="h-5 w-5" />
